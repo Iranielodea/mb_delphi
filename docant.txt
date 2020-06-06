@@ -1,0 +1,2 @@
+Nome_For#Motorista#Placa#Nome_Cliente#End_Cliente#Cidade_Cliente#Cep_Cliente#Estado_Cliente#Cnpj_Cliente#Insc_Cliente#Data#Qtde#Armazem#
+MODELO COMERCIO E EXPORTAÇÃO DE AÇÚCAR LTDA#FERNANDO SEMIONI#ILQ - 2625#VICTOR LUIZ DEMOLINER - ME#TRAVESSÃO MARTINS S/Nº #FLORES DA CUNHA#95270-000#RS#89.719.389/0001-33#0480008515#06 de  março de 2008#100#USINA IBERIA LTDA#

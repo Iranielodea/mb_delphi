@@ -1,0 +1,2 @@
+Nome_For#Motorista#Placa#Nome_Cliente#End_Cliente#Cidade_Cliente#Cep_Cliente#Estado_Cliente#Cnpj_Cliente#Insc_Cliente#Data#Qtde#Armazem#
+PIMEX AÇÚCAR E ALCOOL LTDA#JURANDIR DUARTE#MDG - 3581#VINHOS RANDON LTDA#LINHA SANTO ISIDORO S/Nº #PINHEIRO PRETO#89570-000#SC#86.552.676/0001-03#250074184#18 de  janeiro de 2008#800#ARMAZEM PIUMHI LTDA#

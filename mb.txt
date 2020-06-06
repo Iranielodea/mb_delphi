@@ -1,0 +1,8 @@
+update CONTAS CON set
+CON.COD_CLIENTE =
+(
+    select CAR.COD_CONTATO from CARGA CAR
+     where CON.num_pedido = CAR.id_carga
+)
+
+where CON.tipo_conta = 2

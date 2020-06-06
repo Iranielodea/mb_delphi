@@ -1,0 +1,349 @@
+unit uContasPagar;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, StdCtrls, Buttons, DB, DBClient, Provider, SqlExpr,
+  Grids, DBGrids, Mask, ExtCtrls, DBCtrls;
+
+type
+  TfContasPagar = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Cod_For: TMaskEdit;
+    NomeFor: TEdit;
+    Grade: TDBGrid;
+    QContas: TSQLQuery;
+    QContasID_CONTA: TIntegerField;
+    QContasDOCUMENTO: TStringField;
+    QContasDATA_EMISSAO: TSQLTimeStampField;
+    QContasDIAS: TIntegerField;
+    QContasDATA_VENCTO: TSQLTimeStampField;
+    QContasVALOR_PAGAR: TFloatField;
+    QContasDATA_PAGO: TSQLTimeStampField;
+    QContasCOD_PAGTO: TIntegerField;
+    QContasVALOR_PAGO: TFloatField;
+    QContasSITUACAO: TStringField;
+    QContasDESC_PAGTO: TStringField;
+    dspContas: TDataSetProvider;
+    Contas: TClientDataSet;
+    ContasDOCUMENTO: TStringField;
+    ContasDATA_EMISSAO: TSQLTimeStampField;
+    ContasDIAS: TIntegerField;
+    ContasDATA_VENCTO: TSQLTimeStampField;
+    ContasVALOR_PAGAR: TFloatField;
+    ContasDATA_PAGO: TSQLTimeStampField;
+    ContasID_CONTA: TIntegerField;
+    ContasCOD_PAGTO: TIntegerField;
+    ContasVALOR_PAGO: TFloatField;
+    ContasSITUACAO: TStringField;
+    ContasDESC_PAGTO: TStringField;
+    ContasC_VALORTOTAL: TAggregateField;
+    ContasC_NUMPARCELA: TAggregateField;
+    dsCad: TDataSource;
+    Panel2: TPanel;
+    butExcluir: TSpeedButton;
+    butSair: TSpeedButton;
+    butAlterar: TBitBtn;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    ContasC_TOTAL_RECEBER: TAggregateField;
+    ContasC_TOTAL_PAGO: TAggregateField;
+    ContasC_SALDO: TAggregateField;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    SpeedButton1: TSpeedButton;
+    QContasNUM_PEDIDO: TIntegerField;
+    ContasNUM_PEDIDO: TIntegerField;
+    butNovo: TSpeedButton;
+    Label5: TLabel;
+    NumDoc: TEdit;
+    QAux: TSQLQuery;
+    QDoc: TSQLQuery;
+    QDocDOCUMENTO: TStringField;
+    QDocCOD_FOR: TIntegerField;
+    QDocNOME: TStringField;
+    procedure FormActivate(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure Cod_ForExit(Sender: TObject);
+    procedure NomeForExit(Sender: TObject);
+    procedure butAlterarClick(Sender: TObject);
+    procedure butExcluirClick(Sender: TObject);
+    procedure butSairClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure GradeDblClick(Sender: TObject);
+    procedure GradeKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure butNovoClick(Sender: TObject);
+    procedure NumDocEnter(Sender: TObject);
+    procedure NumDocExit(Sender: TObject);
+  private
+    { Private declarations }
+    procedure PesquisaCliente(Tipo: String);
+    procedure MostraContas;
+  public
+    { Public declarations }
+  end;
+
+var
+  fContasPagar: TfContasPagar;
+
+implementation
+
+uses uDM, uCliente, UUtil, uBaixaConta, uFornecedor, uNovaConta, UPesqDoc,
+  uDMRegra;
+
+{$R *.dfm}
+
+procedure TfContasPagar.FormActivate(Sender: TObject);
+begin
+   dm.Tamanho_Form(fContasPagar);
+end;
+
+procedure TfContasPagar.PesquisaCliente(Tipo: String);
+var vreg: integer;
+begin
+   if (Cod_For.Modified = false) and (NomeFor.Modified = false) then exit;
+   if ((Cod_For.Text = '') and (Tipo = 'C')) or ((NomeFor.Text = '') and (Tipo = 'D')) then
+   begin
+      Cod_For.Clear;
+      NomeFor.Clear;
+      Cod_For.Modified:=false;
+      NomeFor.Modified:=false;
+      Contas.Close;
+      exit;
+   end;
+   if Tipo = 'C' then
+      ComandoQSql('select Cod_For, NOME from FORNECEDOR where Cod_For = '+Cod_For.Text)
+   else
+      ComandoQSql('select Cod_For, NOME from FORNECEDOR where NOME like  '''+NomeFor.Text+'%''');
+   vreg:=dm.Conta_Reg(dm.Qsql);
+   if vreg = 1 then
+   begin
+      Cod_For.Text:=dm.Qsql.Fields[0].Text;
+      NomeFor.Text:=dm.Qsql.Fields[1].Text;
+      MostraContas;
+   end
+   else begin
+      fFornecedor:=TfFornecedor.create(Self);
+      fFornecedor.TipoCad.Text:='P';
+      if Tipo = 'D' then
+         fFornecedor.EditNome.Text:=NomeFor.Text;
+      if fFornecedor.ShowModal = mrOk then
+      begin
+         Cod_For.Text:=dm.FornecedorCod_For.Text;
+         NomeFor.Text:=dm.FornecedorNOME.Text;
+         MostraContas;
+      end
+      else begin
+         Cod_For.Clear;
+         NomeFor.Clear;
+         Contas.Close;
+      end;
+      dm.Fornecedor.close;
+      fFornecedor.Free;
+   end;
+   dm.Qsql.close;
+   Cod_For.Modified:=false;
+   NomeFor.Modified:=false;
+end;
+
+procedure TfContasPagar.SpeedButton1Click(Sender: TObject);
+begin
+   fFornecedor:=TfFornecedor.create(Self);
+   fFornecedor.TipoCad.Text:='P';
+   if fFornecedor.ShowModal = mrOk then
+   begin
+      Cod_For.Text:=dm.FornecedorCOD_FOR.Text;
+      NomeFor.Text:=dm.FornecedorNOME.Text;
+      MostraContas;
+      Cod_For.Modified:=false;
+      NomeFor.Modified:=false;
+   end;
+   dm.Fornecedor.close;
+   fFornecedor.Free;
+end;
+
+procedure TfContasPagar.Cod_ForExit(Sender: TObject);
+begin
+   PesquisaCliente('C');
+end;
+
+procedure TfContasPagar.NomeForExit(Sender: TObject);
+begin
+   PesquisaCliente('D');
+end;
+
+procedure TfContasPagar.MostraContas;
+begin
+   Contas.close;
+   QContas.SQL.Text:=QAux.SQL.Text;
+   QContas.SQL.Add(' where CON.COD_EMPRESA > 0');
+   if Cod_For.Text <> '' then
+      QContas.SQL.Add(' and CON.COD_FOR = '+Cod_For.Text);
+   if NumDoc.Text <> '' then
+      QContas.SQL.Add(' and CON.DOCUMENTO = '''+NumDoc.Text+'''');
+   QContas.SQL.Add(' and CON.TIPO_CONTA = 3');
+   QContas.SQL.Add(' order by CON.SITUACAO, CON.DATA_VENCTO');
+   contas.Open;
+   Grade.SetFocus;
+end;
+
+procedure TfContasPagar.butAlterarClick(Sender: TObject);
+begin
+   if contas.Active = false then exit;
+   if contas.IsEmpty then exit;
+   fBaixaConta:=TfBaixaConta.create(self);
+   fBaixaConta.id_Conta.Text:=ContasID_CONTA.Text;
+   fBaixaConta.showModal;
+   fBaixaConta.free;
+   MostraContas;
+end;
+
+procedure TfContasPagar.butExcluirClick(Sender: TObject);
+begin
+   if contas.Active = false then exit;
+   if contas.IsEmpty then exit;
+   if confirma('Confirma Exclusão desta Parcela ?','N')=idno then
+      exit;
+   dm.IniTrans;
+   dm.Get_Contas(ContasID_CONTA.Text);
+   dmRegra.ExcluirParcela(ContasID_CONTA.Text);
+   Contas.Delete;
+   dm.SalvaTab(dm.Contas);
+   dm.SalvaTrans;
+   MostraContas;
+end;
+
+procedure TfContasPagar.butSairClick(Sender: TObject);
+begin
+   close;
+end;
+
+procedure TfContasPagar.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   case key of
+      vk_F2: butNovoClick(self);
+      vk_F3: butAlterarClick(self);
+      vk_F4: butExcluirClick(self);
+      vk_Escape: begin
+                     if NomeFor.Focused then
+                        close
+                     else
+                        NomeFor.SetFocus;
+                 end;
+   end;
+end;
+
+procedure TfContasPagar.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+   if key = #13 then
+   begin
+      key:=#0;
+      perform(Wm_NextDlgCtl,0,0);
+   end;
+end;
+
+procedure TfContasPagar.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+   contas.Close;
+   action:=cafree;
+end;
+
+procedure TfContasPagar.GradeDblClick(Sender: TObject);
+var vpos: integer;
+begin
+   vpos:=Contas.RecNo;
+   butAlterarClick(Self);
+   if vpos > 0 then
+      Contas.RecNo:=vpos;
+   Grade.SetFocus;
+end;
+
+procedure TfContasPagar.GradeKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if key = vk_Return then
+      GradeDblClick(self);
+end;
+
+procedure TfContasPagar.butNovoClick(Sender: TObject);
+begin
+   if contas.Active = false then exit;
+   if Cod_For.Text = '' then
+   begin
+      mensagem('Informe o Fornecedor');
+      Cod_For.SetFocus;
+      exit;
+   end;
+   fNovaConta:=TfNovaConta.create(self);
+   fNovaConta.Cod_Pessoa.Text:=Cod_For.Text;
+   fNovaConta.Tipo.Text:='P';
+   fNovaConta.showModal;
+   fNovaConta.free;
+   MostraContas;
+end;
+
+procedure TfContasPagar.NumDocEnter(Sender: TObject);
+begin
+   NumDoc.Modified:=false;
+end;
+
+procedure TfContasPagar.NumDocExit(Sender: TObject);
+var vconta: integer;
+begin
+   if NumDoc.Modified then
+   begin
+      if trim(NumDoc.Text) = '' then
+      begin
+         NumDoc.Clear;
+         exit;
+      end;
+
+      QDoc.Close;
+      QDoc.Params[0].Text:=NumDoc.Text;
+      Qdoc.Open;
+      vConta:=Conta_Registros3(Qdoc);
+      if vconta = 0 then
+      begin
+         Qdoc.Close;
+         Contas.Close;
+         Cod_For.Clear;
+         NomeFor.Clear;
+         NumDoc.Clear;
+         mensagem('Documento não Encontrado');
+         exit;
+      end;
+      if vconta = 1 then
+      begin
+         Cod_For.Text:=QDocCOD_FOR.Text;
+         NomeFor.Text:=QDocNOME.Text;
+         MostraContas;
+      end;
+      Qdoc.Close;
+      if vconta > 1 then
+      begin
+         fPesqDoc:=TfPesqDoc.create(self);
+         fPesqDoc.NumDoc.Text:=NumDoc.Text;
+         fPesqDoc.Tipo_Conta.Text:='3';
+         if fPesqDoc.ShowModal = mrOk then
+         begin
+            Cod_For.Text:=fPesqDoc.PesqCOD_FOR.Text;
+            NomeFor.Text:=fPesqDoc.PesqNOME_FOR.Text;
+            NumDoc.Text:=fPesqDoc.PesqDOCUMENTO.Text;
+            MostraContas;
+         end;
+         fPesqDoc.Pesq.Close;
+         fPesqDoc.Free;
+      end;
+   end;
+end;
+
+end.

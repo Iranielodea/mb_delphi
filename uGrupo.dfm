@@ -1,0 +1,54 @@
+inherited fGrupo: TfGrupo
+  Caption = 'Grupos'
+  OldCreateOrder = True
+  PixelsPerInch = 96
+  TextHeight = 16
+  inherited Grade: TDBGrid
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'COD_GRUPO'
+        Title.Caption = 'C'#243'digo'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DESC_GRUPO'
+        Title.Caption = 'Nome'
+        Width = 439
+        Visible = True
+      end>
+  end
+  inherited P_Cad: TPanel
+    inherited PageControl1: TPageControl
+      inherited sheetCad: TTabSheet
+        inherited Panel3: TPanel
+          inherited Codigo: TDBEdit
+            DataField = 'COD_GRUPO'
+          end
+          inherited Nome: TDBEdit
+            DataField = 'DESC_GRUPO'
+          end
+        end
+      end
+      inherited TabSheet1: TTabSheet
+        inherited Panel4: TPanel
+          inherited DBEdit2: TDBEdit
+            DataField = 'USU_INC'
+          end
+          inherited DBEdit3: TDBEdit
+            DataField = 'USU_ALT'
+          end
+        end
+      end
+    end
+    inherited Panel2: TPanel
+      inherited DBNavigator1: TDBNavigator
+        Hints.Strings = ()
+      end
+    end
+  end
+  inherited dsCad: TDataSource
+    DataSet = DM.Grupo
+  end
+end

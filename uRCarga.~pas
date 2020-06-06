@@ -1,0 +1,259 @@
+unit uRCarga;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, SqlExpr, DB, ppCtrls, ppPrnabl, ppClass, ppDB, ppBands,
+  ppCache, ppDBPipe, ppComm, ppRelatv, ppProd, ppReport, DBClient, Provider,
+  ppViewr, ppStrtch, ppMemo, ppEndUsr, StdCtrls, jpeg, ppSubRpt;
+
+type
+  TFRCarga = class(TForm)
+    QCarga: TSQLQuery;
+    dspCarga: TDataSetProvider;
+    Carga: TClientDataSet;
+    dsCarga: TDataSource;
+    CargaCOD_AGENCIA: TIntegerField;
+    CargaCOD_CLIENTE: TIntegerField;
+    CargaCOD_CONTATO: TIntegerField;
+    CargaCOD_FOR: TIntegerField;
+    CargaCOD_MOTORISTA: TIntegerField;
+    CargaDATA: TSQLTimeStampField;
+    CargaID_CARGA: TIntegerField;
+    CargaLETRA: TStringField;
+    CargaNUM_CARGA: TIntegerField;
+    CargaNUM_PEDIDO: TIntegerField;
+    CargaQTDE: TFloatField;
+    CargaQTDE_PEDIDO: TFloatField;
+    CargaVALOR_CARREGA: TFloatField;
+    CargaVALOR_FRETE: TFloatField;
+    CargaVALOR_PEDIDO: TFloatField;
+    CargaVISTO: TStringField;
+    CargaNOME_FOR: TStringField;
+    CargaNOME_CLIENTE: TStringField;
+    CargaNOME_CONTATO: TStringField;
+    CargaNOME_MOTORISTA: TStringField;
+    Rel: TppReport;
+    dbCarga: TppDBPipeline;
+    CargaPLACA: TStringField;
+    CargaDATA_VENCTO: TSQLTimeStampField;
+    CargaVALOR_PAGAR: TFloatField;
+    CargaDESC_PAGTO: TStringField;
+    CargaFONE_CLIENTE: TStringField;
+    CargaFONE_CONTATO: TStringField;
+    CargaFONE_MOTORISTA: TStringField;
+    CargaOBS: TStringField;
+    desRel: TppDesigner;
+    CargaCONTATO_INDICACAO: TStringField;
+    CargaFONE_TRANSPORTADOR: TStringField;
+    QCargaCOD_AGENCIA: TIntegerField;
+    QCargaCOD_CLIENTE: TIntegerField;
+    QCargaCOD_CONTATO: TIntegerField;
+    QCargaCOD_FOR: TIntegerField;
+    QCargaCOD_MOTORISTA: TIntegerField;
+    QCargaDATA: TSQLTimeStampField;
+    QCargaID_CARGA: TIntegerField;
+    QCargaPLACA: TStringField;
+    QCargaLETRA: TStringField;
+    QCargaNUM_CARGA: TIntegerField;
+    QCargaOBS: TStringField;
+    QCargaNUM_PEDIDO: TIntegerField;
+    QCargaQTDE: TFloatField;
+    QCargaQTDE_PEDIDO: TFloatField;
+    QCargaVALOR_CARREGA: TFloatField;
+    QCargaVALOR_FRETE: TFloatField;
+    QCargaVALOR_PEDIDO: TFloatField;
+    QCargaCONTATO_INDICACAO: TStringField;
+    QCargaVISTO: TStringField;
+    QCargaNOME_FOR: TStringField;
+    QCargaNOME_CLIENTE: TStringField;
+    QCargaFONE_CLIENTE: TStringField;
+    QCargaNOME_CONTATO: TStringField;
+    QCargaFONE_CONTATO: TStringField;
+    QCargaFONE_TRANSPORTADOR: TStringField;
+    QCargaNOME_MOTORISTA: TStringField;
+    QCargaFONE_MOTORISTA: TStringField;
+    QCargaDATA_VENCTO: TSQLTimeStampField;
+    QCargaVALOR_PAGAR: TFloatField;
+    QCargaDESC_PAGTO: TStringField;
+    QCargaSALDO: TFloatField;
+    QCargaARMAZEM: TStringField;
+    CargaSALDO: TFloatField;
+    CargaARMAZEM: TStringField;
+    CargaC_VALORUNIT: TFloatField;
+    EditValorUnit: TEdit;
+    CargaC_ANO: TStringField;
+    QObs: TSQLQuery;
+    dsPonte: TDataSource;
+    QObsTEXTO: TStringField;
+    QObsNUM_LINHA: TIntegerField;
+    CargaQObs: TDataSetField;
+    dspObs: TDataSetProvider;
+    Obs: TClientDataSet;
+    dbObs: TppDBPipeline;
+    dsObs: TDataSource;
+    QCargaVALOR_VENDA: TFloatField;
+    CargaVALOR_VENDA: TFloatField;
+    ppHeaderBand1: TppHeaderBand;
+    ppLabel1: TppLabel;
+    ppLabel2: TppLabel;
+    ppLabel3: TppLabel;
+    ppLine1: TppLine;
+    ppLabel4: TppLabel;
+    ppLine2: TppLine;
+    ppLine3: TppLine;
+    ppLabel6: TppLabel;
+    ppLabel7: TppLabel;
+    ppLine5: TppLine;
+    ppLine6: TppLine;
+    ppDBText1: TppDBText;
+    ppDBText2: TppDBText;
+    ppDBText3: TppDBText;
+    ppDBText4: TppDBText;
+    ppDBText5: TppDBText;
+    ppLabel8: TppLabel;
+    ppLine7: TppLine;
+    ppLabel9: TppLabel;
+    ppLine8: TppLine;
+    ppDBText6: TppDBText;
+    ppDBText7: TppDBText;
+    ppLabel10: TppLabel;
+    ppDBText8: TppDBText;
+    ppLine9: TppLine;
+    ppLabel11: TppLabel;
+    ppLine10: TppLine;
+    ppDBText9: TppDBText;
+    ppLabel12: TppLabel;
+    ppLabel37: TppLabel;
+    ppLabel38: TppLabel;
+    ppDBText18: TppDBText;
+    ppShape4: TppShape;
+    ppDBText22: TppDBText;
+    ppDBText23: TppDBText;
+    ppLabel5: TppLabel;
+    ppDetailBand1: TppDetailBand;
+    ppDBText16: TppDBText;
+    ppDBText17: TppDBText;
+    ppDBText25: TppDBText;
+    ppSummaryBand1: TppSummaryBand;
+    ppLabel13: TppLabel;
+    ppLine11: TppLine;
+    ppLabel14: TppLabel;
+    ppLabel15: TppLabel;
+    ppLine12: TppLine;
+    ppLabel16: TppLabel;
+    ppLabel17: TppLabel;
+    ppLabel18: TppLabel;
+    ppLabel19: TppLabel;
+    ppLabel20: TppLabel;
+    ppLine13: TppLine;
+    ppLine14: TppLine;
+    ppLine15: TppLine;
+    ppLabel21: TppLabel;
+    ppLine16: TppLine;
+    ppLabel22: TppLabel;
+    ppLine17: TppLine;
+    ppLabel23: TppLabel;
+    ppLine18: TppLine;
+    ppShape1: TppShape;
+    ppLabel24: TppLabel;
+    ppLabel25: TppLabel;
+    ppLine19: TppLine;
+    ppLabel26: TppLabel;
+    ppLabel27: TppLabel;
+    ppLabel28: TppLabel;
+    ppLabel29: TppLabel;
+    ppLabel30: TppLabel;
+    ppLine20: TppLine;
+    ppLine21: TppLine;
+    ppLine22: TppLine;
+    ppLine23: TppLine;
+    ppLine24: TppLine;
+    ppLabel31: TppLabel;
+    ppLine25: TppLine;
+    ppLabel32: TppLabel;
+    ppLine26: TppLine;
+    ppLabel33: TppLabel;
+    ppDBText10: TppDBText;
+    ppDBText11: TppDBText;
+    ppDBText12: TppDBText;
+    ppDBText13: TppDBText;
+    ppDBText14: TppDBText;
+    ppDBText15: TppDBText;
+    ppDBText19: TppDBText;
+    ppDBText20: TppDBText;
+    ppLabel39: TppLabel;
+    ppLabel40: TppLabel;
+    ppDBText21: TppDBText;
+    ppShape2: TppShape;
+    ppShape3: TppShape;
+    ppImage1: TppImage;
+    ppSubReport1: TppSubReport;
+    ppChildReport1: TppChildReport;
+    ppDetailBand2: TppDetailBand;
+    ppDBText24: TppDBText;
+    QCargaEMAIL_CLIENTE: TStringField;
+    CargaEMAIL_CLIENTE: TStringField;
+    CargaC_OUTRAS_CARGAS: TStringField;
+    QOutrasCargas: TSQLQuery;
+    QOutrasCargasNUM_CARGA: TIntegerField;
+    QOutrasCargasLETRA: TStringField;
+    procedure RelPreviewFormCreate(Sender: TObject);
+    procedure CargaCalcFields(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure OutrasCargas(inCarga, inLetra, inCodEmpresa: string);
+  end;
+
+var
+  FRCarga: TFRCarga;
+
+implementation
+
+uses uDM;
+
+var vlCargas: string;
+
+{$R *.dfm}
+
+procedure TFRCarga.RelPreviewFormCreate(Sender: TObject);
+begin
+   TPPReport(Sender).PreviewForm.WindowState:=wsMaximized;
+   TPPViewer(TPPReport(Sender).PreviewForm.Viewer).ZoomPercentage:=100; // .zoomSetting:=100;//zswholepage;
+end;
+
+procedure TFRCarga.CargaCalcFields(DataSet: TDataSet);
+begin
+   CargaC_VALORUNIT.Text:=EditValorUnit.Text;
+   CargaC_ANO.Text:=formatdatetime('yyyy',dm.CargaDATA.AsDateTime);
+   //if Carga.State = dsInternalCalc then
+      CargaC_OUTRAS_CARGAS.Text := vlCargas;
+end;
+
+procedure TFRCarga.OutrasCargas(inCarga, inLetra, inCodEmpresa: string);
+begin
+   vlCargas := '';
+   if trim(inLetra) = '' then
+   begin
+      QOutrasCargas.close;
+      QOutrasCargas.Params[0].Text := inCodEmpresa;
+      QOutrasCargas.Params[1].Text := inCarga;
+      QOutrasCargas.Open;
+
+      vlCargas := '';
+      if not QOutrasCargas.IsEmpty then
+      begin
+         while not QOutrasCargas.Eof do
+         begin
+            vlCargas := vlCargas + QOutrasCargasNUM_CARGA.Text + '-' + QOutrasCargasLETRA.text + ' ';
+            QOutrasCargas.next;
+         end;
+      end;
+      QOutrasCargas.Close;
+   end;
+end;
+
+end.

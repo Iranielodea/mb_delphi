@@ -1,0 +1,42 @@
+unit uVendedor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, uBase, DB, DBCtrls, Mask, ComCtrls, Grids, DBGrids, ExtCtrls,
+  StdCtrls, Buttons;
+
+type
+  TfVendedor = class(TfBase)
+    procedure FormActivate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fVendedor: TfVendedor;
+
+implementation
+
+uses uDM, UUtil;
+
+{$R *.dfm}
+
+procedure TfVendedor.FormActivate(Sender: TObject);
+begin
+   dm.Tamanho_Form(fVendedor);
+  inherited;
+
+end;
+
+procedure TfVendedor.Button1Click(Sender: TObject);
+begin
+  inherited;
+   edit2.Text:=formatfloat(',##0.00',StrToFloat(edit1.Text));
+end;
+
+end.

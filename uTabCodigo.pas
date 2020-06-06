@@ -1,0 +1,232 @@
+unit uTabCodigo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, ComCtrls, StdCtrls, Buttons, Mask, FMTBcd, DB, SqlExpr;
+
+type
+  TfTabCodigo = class(TForm)
+    f: TPageControl;
+    TabSheet1: TTabSheet;
+    Panel1: TPanel;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    EditCidade: TMaskEdit;
+    EditCli: TMaskEdit;
+    EditCond: TMaskEdit;
+    EditEmp: TMaskEdit;
+    EditEstado: TMaskEdit;
+    EditPagto: TMaskEdit;
+    EditPermissao: TMaskEdit;
+    EditFor: TMaskEdit;
+    EditGrupo: TMaskEdit;
+    EditPedido: TMaskEdit;
+    EditProduto: TMaskEdit;
+    EditUnidade: TMaskEdit;
+    EditUsuario: TMaskEdit;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    SpeedButton10: TSpeedButton;
+    SpeedButton11: TSpeedButton;
+    SpeedButton12: TSpeedButton;
+    SpeedButton13: TSpeedButton;
+    Label14: TLabel;
+    QGen: TSQLQuery;
+    butSair: TSpeedButton;
+    Label15: TLabel;
+    EditVendedor: TMaskEdit;
+    SpeedButton14: TSpeedButton;
+    Label16: TLabel;
+    editTipoFor: TMaskEdit;
+    SpeedButton15: TSpeedButton;
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
+    procedure SpeedButton9Click(Sender: TObject);
+    procedure SpeedButton10Click(Sender: TObject);
+    procedure SpeedButton11Click(Sender: TObject);
+    procedure SpeedButton12Click(Sender: TObject);
+    procedure SpeedButton13Click(Sender: TObject);
+    procedure butSairClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure SpeedButton14Click(Sender: TObject);
+    procedure SpeedButton15Click(Sender: TObject);
+  private
+    { Private declarations }
+    procedure Atualiza_Codigo(Generator, Codigo: String);
+    function Mostra_Codigo(Generator: String): String;
+  public
+    { Public declarations }
+  end;
+
+var
+  fTabCodigo: TfTabCodigo;
+
+implementation
+
+uses uDM, UUtil;
+
+{$R *.dfm}
+
+{ TfTabCodigo }
+
+procedure TfTabCodigo.Atualiza_Codigo(Generator, Codigo: String);
+begin
+   Executa('SET GENERATOR '+Generator+' TO '+Codigo);
+   EditCidade.SetFocus;
+end;
+
+procedure TfTabCodigo.SpeedButton1Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_CIDADE',EditCidade.Text);
+end;
+
+procedure TfTabCodigo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+   action:=cafree;
+end;
+
+procedure TfTabCodigo.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if key = vk_Escape then
+      close;
+end;
+
+procedure TfTabCodigo.FormCreate(Sender: TObject);
+begin
+   EditCidade.Text:=Mostra_Codigo('GEN_CIDADE');
+   EditCli.Text:=Mostra_Codigo('GEN_CLIENTE');
+   EditCond.Text:=Mostra_Codigo('GEN_CONDICAO');
+   EditEmp.Text:=Mostra_Codigo('GEN_EMPRESA');
+   EditEstado.Text:=Mostra_Codigo('GEN_ESTADO');
+   EditPagto.Text:=Mostra_Codigo('GEN_FORMAPAGTO');
+   EditPermissao.Text:=Mostra_Codigo('GEN_PERMISSAO');
+   EditFor.Text:=Mostra_Codigo('GEN_FORNECEDOR');
+   EditGrupo.Text:=Mostra_Codigo('GEN_GRUPO');
+   EditPedido.Text:=Mostra_Codigo('GEN_PEDIDO');
+   EditProduto.Text:=Mostra_Codigo('GEN_PRODUTO');
+   EditUnidade.Text:=Mostra_Codigo('GEN_UNIDADE');
+   EditUsuario.Text:=Mostra_Codigo('GEN_USUARIO');
+end;
+
+function TfTabCodigo.Mostra_Codigo(Generator: String): String;
+begin
+   QGen.Close;
+   Qgen.SQL.Text:='select cast(gen_id('+Generator+',0) as Integer) as CODIGO from rdb$database';
+   Qgen.Open;
+   result:=Qgen.Fields[0].Text;
+   Qgen.Close;
+end;
+
+procedure TfTabCodigo.SpeedButton2Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_CLIENTE',EditCli.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton3Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_CONDICAO',EditCond.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton4Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_EMPRESA',EditEmp.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton5Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_ESTADO',EditEstado.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton6Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_FORMAPAGTO',EditPagto.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton7Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_PERMISSAO',EditPermissao.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton8Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_FORNECEDOR',EditFor.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton9Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_GRUPO',EditGrupo.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton10Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_PEDIDO',EditPedido.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton11Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_PRODUTO',EditProduto.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton12Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_UNIDADE',EditUnidade.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton13Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_USUARIO',EditUsuario.Text);
+end;
+
+procedure TfTabCodigo.butSairClick(Sender: TObject);
+begin
+   close;
+end;
+
+procedure TfTabCodigo.FormActivate(Sender: TObject);
+begin
+   dm.Tamanho_Form(fTabCodigo);
+end;
+
+procedure TfTabCodigo.SpeedButton14Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_VENDEDOR',EditVendedor.Text);
+end;
+
+procedure TfTabCodigo.SpeedButton15Click(Sender: TObject);
+begin
+   Atualiza_Codigo('GEN_FORN_TIPO_EMPRESA',editTipoFor.Text);
+end;
+
+end.

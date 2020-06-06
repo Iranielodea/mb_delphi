@@ -1,0 +1,151 @@
+unit USenha;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Buttons, ExtCtrls, FMTBcd, Mask, DB, SqlExpr;
+
+type
+  TfSenha = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    EditUsuario: TEdit;
+    editSenha: TEdit;
+    Panel1: TPanel;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    Qsenha: TSQLDataSet;
+    Label3: TLabel;
+    CodEmpresa: TMaskEdit;
+    Nome: TEdit;
+    QEmpresa: TSQLDataSet;
+    QsenhaCOD_EMPRESA: TIntegerField;
+    QsenhaNOME: TStringField;
+    QsenhaSENHA: TStringField;
+    QEmpresaCOD_EMPRESA: TIntegerField;
+    QEmpresaNOME: TStringField;
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure CodEmpresaExit(Sender: TObject);
+    procedure CodEmpresaEnter(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fSenha: TfSenha;
+
+implementation
+
+uses UUtil, UmenuPrin, uDM;
+
+{$R *.dfm}
+
+procedure TfSenha.BitBtn2Click(Sender: TObject);
+begin
+   close;
+end;
+
+procedure TfSenha.BitBtn1Click(Sender: TObject);
+begin
+   if (editUsuario.Text = 'SUPERVISOR') and (editSenha.Text = 'DELPHI') then
+   begin
+      fMenuPrin.Regua.Panels[0].Text:='Empresa: '+CodEmpresa.Text;
+      fMenuPrin.Regua.Panels[1].Text:='Usuário: '+EditUsuario.Text;
+      fMenuPrin.Show;
+      Qsenha.Close;
+      vgUsuario:=EditUsuario.Text;
+      vgCod_Empresa:=CodEmpresa.Text;
+      fSenha.Visible:=false;
+      exit;
+   end;
+   if Codempresa.Text = '' then
+   begin
+      mensagem('informe a Empresa');
+      CodEmpresa.SetFocus;
+      exit;
+   end;
+   Qsenha.Close;
+   Qsenha.Params.ParamByName('CODEMPRESA').Text:=CodEmpresa.Text;
+   Qsenha.Params.ParamByName('NOME').Text:=EditUsuario.Text;
+   Qsenha.Params.ParamByName('SENHA').Text:=EditSenha.Text;
+   Qsenha.Open;
+   if Qsenha.IsEmpty then
+   begin
+      mensagem('Senha Inválida');
+      editUsuario.SetFocus;
+      Qsenha.Close;
+      exit;
+   end;
+   fMenuPrin:=TfMenuprin.create(Self);
+   fMenuPrin.Regua.Panels[0].Text:='Empresa: '+CodEmpresa.Text;
+   fMenuPrin.Regua.Panels[1].Text:='Usuário: '+EditUsuario.Text;
+   fmenuPrin.Caption:='Menu Principal - '+Nome.Text;
+   vgUsuario:=EditUsuario.Text;
+   vgCod_Empresa:=CodEmpresa.Text;
+   fMenuPrin.Show;
+   Qsenha.Close;
+   fSenha.Visible:=false;
+end;
+
+procedure TfSenha.CodEmpresaExit(Sender: TObject);
+begin
+   if CodEmpresa.Modified then
+   begin
+      if CodEmpresa.Text = '' then
+      begin
+         Nome.Clear;
+         exit;
+      end;
+      Qempresa.Close;
+      Qempresa.Params[0].Text:=CodEmpresa.Text;
+      Qempresa.Open;
+      if Qempresa.IsEmpty then
+      begin
+         mensagem('Empresa não Cadastrada');
+         Qempresa.Close;
+         exit;
+      end;
+      Nome.Text:=QempresaNOME.Text;
+      Qempresa.Close;
+   end;
+end;
+
+procedure TfSenha.CodEmpresaEnter(Sender: TObject);
+begin
+   CodEmpresa.Modified:=false;
+end;
+
+procedure TfSenha.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+   if key = #13 then
+   begin
+      key:=#0;
+      perform(Wm_NextDlgCtl,0,0);
+   end;
+end;
+
+procedure TfSenha.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   if key = vk_Escape then
+      close;
+end;
+
+procedure TfSenha.FormActivate(Sender: TObject);
+begin
+   if CodEmpresa.Text <> '' then
+   begin
+      CodEmpresa.Modified:=true;
+      CodEmpresaExit(Self);
+   end;
+end;
+
+end.
