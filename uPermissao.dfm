@@ -1,10 +1,10 @@
 object fPermissao: TfPermissao
   Left = 192
   Top = 114
-  Width = 750
-  Height = 520
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Permiss'#245'es'
+  ClientHeight = 481
+  ClientWidth = 734
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object fPermissao: TfPermissao
   object P_Permissao: TPanel
     Left = 0
     Top = 49
-    Width = 742
-    Height = 437
+    Width = 734
+    Height = 432
     Align = alClient
     TabOrder = 0
     Visible = False
@@ -336,7 +336,6 @@ object fPermissao: TfPermissao
       Top = 8
       Width = 249
       Height = 21
-      ItemHeight = 13
       TabOrder = 0
       OnClick = CboUsuarioClick
     end
@@ -399,9 +398,6 @@ object fPermissao: TfPermissao
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-      OnClick = butOkClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000C40E0000C40E00000000000000000000FF00FFFF00FF
@@ -454,13 +450,15 @@ object fPermissao: TfPermissao
         FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 2
+      OnClick = butOkClick
     end
     object CboInc: TComboBox
       Left = 16
       Top = 376
       Width = 65
       Height = 21
-      ItemHeight = 13
       TabOrder = 3
       Text = 'Todos'
       Items.Strings = (
@@ -473,7 +471,6 @@ object fPermissao: TfPermissao
       Top = 376
       Width = 65
       Height = 21
-      ItemHeight = 13
       TabOrder = 4
       Text = 'Todos'
       Items.Strings = (
@@ -486,7 +483,6 @@ object fPermissao: TfPermissao
       Top = 376
       Width = 65
       Height = 21
-      ItemHeight = 13
       TabOrder = 5
       Text = 'Todos'
       Items.Strings = (
@@ -507,7 +503,7 @@ object fPermissao: TfPermissao
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 742
+    Width = 734
     Height = 49
     Align = alTop
     TabOrder = 1

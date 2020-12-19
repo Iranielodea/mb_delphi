@@ -6033,7 +6033,7 @@ object DM: TDM
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      'Database=C:\Projetos\mb\Banco\loja.fdb'
+      'Database=C:\CLIENTES\mb\loja.fdb'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'

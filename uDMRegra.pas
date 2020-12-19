@@ -3,7 +3,8 @@ unit uDMRegra;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr, Controls, DBClient, uContaBanco, uClassContaBanco;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, Controls, DBClient, uContaBanco, uClassContaBanco,
+    shellapi, Winapi.Windows;
 
 type
   TdmRegra = class(TDataModule)
@@ -22,6 +23,12 @@ type
     QPedidoVALOR_LUCRO: TFloatField;
     QCargaID_CARGA: TIntegerField;
     QpesqNUM_CARGA: TIntegerField;
+    QClienteWEB: TSQLQuery;
+    QTransportadorWEB: TSQLQuery;
+    QPedidoWEB: TSQLQuery;
+    QPedidoWEBCOUNT: TIntegerField;
+    QTransportadorWEBCOUNT: TIntegerField;
+    QClienteWEBCOUNT: TIntegerField;
   private
     FCodigo: Integer;
     FNome: string;
@@ -51,7 +58,9 @@ type
     procedure Get_Codigo(Tabela: TSqlDataSet; Codigo: String);
     procedure Get_Descricao(Tabela: TClientDataSet; Descricao: String);
     procedure Get_Obs(Codigo,Tipo: string);
-
+    procedure ExportarClienteWEB;
+    procedure ExportarTransportadorWEB;
+    procedure ExportarPedidoWEB;
 
     function ContasCarga(inCarga, Tipo: String): boolean;
     procedure Altera_Visto(Cod_Cliente, Cod_Contato: String);
@@ -228,6 +237,51 @@ begin
    Executa('delete from CONTAS where NUM_PEDIDO = '+inCodigo+' and TIPO_CONTA = 1');
    Executa('delete from ITENS_PEDIDO where NUM_PEDIDO = '+inCodigo);
    Executa('delete from PEDIDO where NUM_PEDIDO = '+inCodigo);
+end;
+
+procedure TdmRegra.ExportarClienteWEB;
+var
+  arquivo: AnsiString;
+begin
+  QClienteWEB.Close;
+  QClienteWEB.Open;
+
+  arquivo := 'MB.UI.exe CLIENTE EXPORTAR 0 "" ""';
+
+  if not QClienteWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QClienteWEB.Close;
+end;
+
+procedure TdmRegra.ExportarPedidoWEB;
+var
+  arquivo: AnsiString;
+begin
+  QPedidoWEB.Close;
+  QPedidoWEB.Open;
+
+  arquivo := 'MB.UI.exe PEDIDO EXPORTAR 0 "" ""';
+
+  if not QPedidoWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QPedidoWEB.Close;
+end;
+
+procedure TdmRegra.ExportarTransportadorWEB;
+var
+  arquivo: AnsiString;
+begin
+  QTransportadorWEB.Close;
+  QTransportadorWEB.Open;
+
+  arquivo := 'MB.UI.exe TRANSPORTADOR EXPORTAR 0 "" ""';
+
+  if not QTransportadorWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QTransportadorWEB.Close;
 end;
 
 procedure TdmRegra.ExcluirParcela(inId_Conta: String);

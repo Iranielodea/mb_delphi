@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, Buttons, ToolWin, uCargaTeste, uCargaII;
+  Dialogs, Menus, ComCtrls, Buttons, ToolWin, uCargaTeste, uCargaII, uDMRegra;
 
 type
   TfMenuPrin = class(TForm)
@@ -125,6 +125,7 @@ type
     procedure este1Click(Sender: TObject);
   private
     { Private declarations }
+    procedure ExportarWEB;
   public
     { Public declarations }
   end;
@@ -290,6 +291,8 @@ end;
 procedure TfMenuPrin.FormShow(Sender: TObject);
 begin
   Parametros.Visible := (vgUsuario = 'SUPERVISOR');
+
+
 end;
 
 procedure TfMenuPrin.Tab_CodigoClick(Sender: TObject);
@@ -304,6 +307,13 @@ begin
     frmExecutarComando := TfrmExecutarComando.Create(Self);
     frmExecutarComando.ShowModal;
     frmExecutarComando.free;
+end;
+
+procedure TfMenuPrin.ExportarWEB;
+begin
+  dmRegra.ExportarClienteWEB;
+  dmRegra.ExportarTransportadorWEB;
+  dmRegra.ExportarPedidoWEB;
 end;
 
 procedure TfMenuPrin.ExpurgosClick(Sender: TObject);

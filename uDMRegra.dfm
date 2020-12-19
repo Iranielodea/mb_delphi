@@ -172,4 +172,45 @@ object dmRegra: TdmRegra
       FieldName = 'VALOR_LUCRO'
     end
   end
+  object QClienteWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT COUNT(COD_CLIENTE) FROM CLIENTE WHERE EXPORTAR_NET = '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 152
+    Top = 16
+    object QClienteWEBCOUNT: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
+  object QTransportadorWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      
+        'SELECT COUNT(COD_TRANS) FROM TRANSPORTADOR WHERE EXPORTAR_NET = ' +
+        #39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 152
+    Top = 64
+    object QTransportadorWEBCOUNT: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
+  object QPedidoWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT COUNT(NUM_PEDIDO) FROM PEDIDO WHERE EXPORTAR_NET = '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 152
+    Top = 120
+    object QPedidoWEBCOUNT: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
 end

@@ -5,7 +5,7 @@ inherited fCliente: TfCliente
   ClientHeight = 671
   OldCreateOrder = True
   OnCreate = FormCreate
-  ExplicitTop = -223
+  ExplicitTop = 2
   ExplicitWidth = 748
   ExplicitHeight = 700
   PixelsPerInch = 96

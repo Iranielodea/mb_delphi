@@ -3,7 +3,7 @@ unit udmCliente;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, Datasnap.Provider, Datasnap.DBClient;
 
 type
   TdmCliente = class(TDataModule)
@@ -11,6 +11,9 @@ type
     QCpf: TSQLQuery;
     QCnpjNOME: TStringField;
     QCpfNOME: TStringField;
+    QConsultaCliente: TSQLQuery;
+    dspConsultaCliente: TDataSetProvider;
+    cdsConsulta: TClientDataSet;
   private
     { Private declarations }
   public

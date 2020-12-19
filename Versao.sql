@@ -536,3 +536,34 @@ begin
     END    
 end
 --==
+--------------------------------------------------------------------------------
+-- versao 00024 - 14/12/2020
+UPDATE EMPRESA SET VERSAO = '00024';
+--==
+ALTER TABLE TRANSPORTADOR ADD EXPORTAR_NET CHAR(1)
+--==
+ALTER TABLE CLIENTE ADD EXPORTAR_NET CHAR(1)
+--==
+ALTER TABLE PEDIDO ADD EXPORTAR_NET CHAR(1)
+--==
+CREATE OR ALTER trigger trg_pedido_bi0 for pedido
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+CREATE OR ALTER trigger trg_transportador_bi0 for transportador
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+CREATE trigger trg_cliente_bi0 for cliente
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==

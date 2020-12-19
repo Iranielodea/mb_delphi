@@ -61,7 +61,7 @@ uses UUtil, uDM;
 
 procedure TfPermissao.butConfClick(Sender: TObject);
 begin
-   if (editUsuario.Text = 'SUPERVISOR') and (EditSenha.Text = 'DELPHI') then
+   if (editUsuario.Text = 'SUPERVISOR') and (EditSenha.Text = 'ROOT') then
    begin
       P_Permissao.Visible:=true;
       Carrega_Usuarios;
