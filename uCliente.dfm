@@ -5,7 +5,6 @@ inherited fCliente: TfCliente
   ClientHeight = 671
   OldCreateOrder = True
   OnCreate = FormCreate
-  ExplicitTop = 2
   ExplicitWidth = 748
   ExplicitHeight = 700
   PixelsPerInch = 96
@@ -349,6 +348,10 @@ inherited fCliente: TfCliente
             TabOrder = 7
             object sheetEnd: TTabSheet
               Caption = 'Endere'#231'o'
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object GroupBox2: TGroupBox
                 Left = 0
                 Top = -6
@@ -1151,6 +1154,10 @@ inherited fCliente: TfCliente
             object TabSheet2: TTabSheet
               Caption = 'Vendedores'
               ImageIndex = 2
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object GroupBox5: TGroupBox
                 Left = 0
                 Top = 0
@@ -1280,6 +1287,10 @@ inherited fCliente: TfCliente
       object ts1: TTabSheet [1]
         Caption = 'Complemento'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnl2: TPanel
           Left = 0
           Top = 0

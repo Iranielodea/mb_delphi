@@ -622,6 +622,7 @@ procedure TfCliente.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
   FreeAndNil(FPessoaCredito);
+  dmRegra.ExportarClienteWEB();
 end;
 
 procedure TfCliente.FormCreate(Sender: TObject);

@@ -61,6 +61,7 @@ type
     procedure ExportarClienteWEB;
     procedure ExportarTransportadorWEB;
     procedure ExportarPedidoWEB;
+    procedure ExportarPedidoItensWEB;
 
     function ContasCarga(inCarga, Tipo: String): boolean;
     procedure Altera_Visto(Cod_Cliente, Cod_Contato: String);
@@ -243,27 +244,51 @@ procedure TdmRegra.ExportarClienteWEB;
 var
   arquivo: AnsiString;
 begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
   QClienteWEB.Close;
   QClienteWEB.Open;
 
   arquivo := 'MB.UI.exe CLIENTE EXPORTAR 0 "" ""';
 
-  if not QClienteWEB.Fields[0].AsInteger > 0 then
+  if QClienteWEB.Fields[0].AsInteger > 0 then
     WinExec(PAnsiChar(arquivo), SW_HIDE);
 
   QClienteWEB.Close;
+end;
+
+procedure TdmRegra.ExportarPedidoItensWEB;
+var
+  arquivo: AnsiString;
+begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
+  QPedidoWEB.Close;
+  QPedidoWEB.Open;
+
+  arquivo := 'MB.UI.exe PEDIDO_ITEM EXPORTAR 0 "" ""';
+
+  if QPedidoWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QPedidoWEB.Close;
 end;
 
 procedure TdmRegra.ExportarPedidoWEB;
 var
   arquivo: AnsiString;
 begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
   QPedidoWEB.Close;
   QPedidoWEB.Open;
 
   arquivo := 'MB.UI.exe PEDIDO EXPORTAR 0 "" ""';
 
-  if not QPedidoWEB.Fields[0].AsInteger > 0 then
+  if QPedidoWEB.Fields[0].AsInteger > 0 then
     WinExec(PAnsiChar(arquivo), SW_HIDE);
 
   QPedidoWEB.Close;
@@ -273,12 +298,15 @@ procedure TdmRegra.ExportarTransportadorWEB;
 var
   arquivo: AnsiString;
 begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
   QTransportadorWEB.Close;
   QTransportadorWEB.Open;
 
   arquivo := 'MB.UI.exe TRANSPORTADOR EXPORTAR 0 "" ""';
 
-  if not QTransportadorWEB.Fields[0].AsInteger > 0 then
+  if QTransportadorWEB.Fields[0].AsInteger > 0 then
     WinExec(PAnsiChar(arquivo), SW_HIDE);
 
   QTransportadorWEB.Close;

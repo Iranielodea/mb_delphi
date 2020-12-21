@@ -83,6 +83,7 @@ type
       Shift: TShiftState);
     procedure edtCPFExit(Sender: TObject);
     procedure butPesqClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     procedure BuscarCPF;
@@ -198,6 +199,12 @@ begin
   inherited;
 end;
 
+
+procedure TfTransportador.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  dmRegra.ExportarTransportadorWEB();
+end;
 
 procedure TfTransportador.SpeedButton1Click(Sender: TObject);
 begin

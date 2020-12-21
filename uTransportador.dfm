@@ -634,6 +634,10 @@ inherited fTransportador: TfTransportador
       object TabSheet3: TTabSheet [1]
         Caption = 'Complemento'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel6: TPanel
           Left = 0
           Top = 0
@@ -679,6 +683,10 @@ inherited fTransportador: TfTransportador
       object TabSheet2: TTabSheet [2]
         Caption = 'Dados Banc'#225'rios'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel5: TPanel
           Left = 0
           Top = 0
