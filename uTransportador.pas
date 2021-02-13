@@ -133,12 +133,21 @@ begin
 end;
 
 procedure TfTransportador.butOkClick(Sender: TObject);
+var
+  lTransp: TdmTransportadora;
 begin
-
   if dmRegra.Valida_Inscricao_Estadual(Insc_Estadual.text,EditEstado.text) = false then
      Insc_Estadual.SetFocus;
 
   inherited;
+
+  lTransp := TdmTransportadora.Create(Self);
+  try
+    lTransp.ExportarNuvem(dm.TransportadorCOD_TRANS.AsInteger);
+  finally
+    FreeAndNil(lTransp);
+  end;
+
 end;
 
 procedure TfTransportador.butPesqClick(Sender: TObject);
@@ -167,12 +176,16 @@ begin
   inherited;
    if cnpj.Modified then
    begin
+      if Trim(cnpj.Text) = '' then
+        Exit;
+
       if dmRegra.Valida_CNPJ(Cnpj.Text) = false then
       begin
          cnpj.SetFocus;
          exit;
       end;
-      if cnpj.Text <> '' then
+
+      if Trim(cnpj.Text) <> '' then
       begin
          dmRegra.ComandoSql('select NOME from TRANSPORTADOR'
          +' where COD_EMPRESA = '+vgCod_Empresa

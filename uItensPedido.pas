@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, ComCtrls, DB, Buttons, udmPessoaCredito;
+  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, ComCtrls, DB, Buttons, udmPessoaCredito,
+  udmPedido;
 
 type
   TfItensPedido = class(TForm)
@@ -281,6 +282,9 @@ begin
 end;
 
 procedure TfItensPedido.butOkClick(Sender: TObject);
+var
+  lPedido: TdmPedido;
+  bIncluindo: Boolean;
 begin
    if dm.permite(vgUsuario,'A','PEDIDO') = false then
       exit;
@@ -318,9 +322,11 @@ begin
       mensagem('Preço de Compra maior que Preço de Venda');
    end;
 
-
+   bIncluindo := False;
    if dm.Pedido.State = dsInsert then
    begin
+      bIncluindo := True;
+
       dm.Pedido.Post;
       dm.SalvaTab(dm.Pedido);
       dmRegra.Troca_Cliente_Venda;
@@ -334,6 +340,17 @@ begin
          dm.ItensPedidoSEQ.AsInteger:=strtoint(seq.Text)+1;
    end;
    dm.SalvaTab(dm.ItensPedido);
+
+   if bIncluindo then
+   begin
+      lPedido := TdmPedido.Create(Self);
+      try
+        lPedido.ExportarNuvem(DM.PedidoNUM_PEDIDO.AsInteger);
+      finally
+        FreeAndNil(lPedido);
+      end;
+   end;
+
    dm.SalvaTrans;
    if not (dm.Pedido.state in [dsedit,dsinsert]) then
       dm.Pedido.Edit;

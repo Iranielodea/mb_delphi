@@ -88,4 +88,20 @@ object dmCliente: TdmCliente
     Left = 152
     Top = 80
   end
+  object QExpNuvem: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'UPDATE CLIENTE SET EXPORTAR_NET = '#39'S'#39' WHERE COD_CLIENTE = :CODIG' +
+        'O')
+    SQLConnection = DM.BancoDados
+    Left = 152
+    Top = 32
+  end
 end

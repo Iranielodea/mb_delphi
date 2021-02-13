@@ -2,7 +2,7 @@ inherited fTransportador: TfTransportador
   Caption = 'Transportadores'
   ClientHeight = 556
   OldCreateOrder = True
-  ExplicitWidth = 748
+  ExplicitTop = 8
   ExplicitHeight = 585
   PixelsPerInch = 96
   TextHeight = 16
@@ -102,8 +102,6 @@ inherited fTransportador: TfTransportador
       ExplicitWidth = 699
       ExplicitHeight = 329
       inherited sheetCad: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 27
         ExplicitWidth = 691
         ExplicitHeight = 298
         inherited Panel3: TPanel
@@ -634,10 +632,6 @@ inherited fTransportador: TfTransportador
       object TabSheet3: TTabSheet [1]
         Caption = 'Complemento'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Panel6: TPanel
           Left = 0
           Top = 0
@@ -683,10 +677,6 @@ inherited fTransportador: TfTransportador
       object TabSheet2: TTabSheet [2]
         Caption = 'Dados Banc'#225'rios'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Panel5: TPanel
           Left = 0
           Top = 0
@@ -812,8 +802,6 @@ inherited fTransportador: TfTransportador
         end
       end
       inherited TabSheet1: TTabSheet
-        ExplicitLeft = 4
-        ExplicitTop = 27
         ExplicitWidth = 691
         ExplicitHeight = 298
         inherited Panel4: TPanel

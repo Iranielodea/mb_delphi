@@ -14,6 +14,7 @@ type
     QCnpjNOME: TStringField;
     QCpf: TSQLQuery;
     QCpfNOME: TStringField;
+    QExpNuvem: TSQLQuery;
   private
     { Private declarations }
     FCodigo: Integer;
@@ -24,9 +25,13 @@ type
     property Codigo: Integer read FCodigo write FCodigo;
     property Nome: string read FNome write FNome;
     property CodigoStr: string read FCodigoStr write FCodigoStr;
+
     procedure LocalizarCodigo(Codigo: integer);
+    procedure ExportarNuvem(ACodTransp: Integer);
+
     function LocalizarCNPJ(CodEmpresa: Integer; CNPJ: string): string;
     function LocalizarCPF(CodEmpresa: Integer; CPF: string): string;
+
   end;
 
 var
@@ -39,6 +44,13 @@ uses uDM;
 {$R *.dfm}
 
 { TdmTransportadora }
+
+procedure TdmTransportadora.ExportarNuvem(ACodTransp: Integer);
+begin
+  QExpNuvem.Close;
+  QExpNuvem.Params[0].AsInteger := ACodTransp;
+  QExpNuvem.ExecSQL();
+end;
 
 function TdmTransportadora.LocalizarCNPJ(CodEmpresa: Integer;
   CNPJ: string): string;

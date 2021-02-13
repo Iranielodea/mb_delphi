@@ -1021,10 +1021,6 @@ object fPedido: TfPedido
     object TabSheet1: TTabSheet
       Caption = 'Obs'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -1119,10 +1115,6 @@ object fPedido: TfPedido
     object TabSheet2: TTabSheet
       Caption = 'Usu'#225'rio'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0

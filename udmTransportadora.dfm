@@ -85,4 +85,20 @@ object dmTransportadora: TdmTransportadora
       Size = 50
     end
   end
+  object QExpNuvem: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'UPDATE TRANSPORTADOR SET EXPORTAR_NET = '#39'S'#39' WHERE COD_TRANS = :C' +
+        'ODIGO')
+    SQLConnection = DM.BancoDados
+    Left = 136
+    Top = 72
+  end
 end

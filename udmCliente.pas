@@ -14,10 +14,13 @@ type
     QConsultaCliente: TSQLQuery;
     dspConsultaCliente: TDataSetProvider;
     cdsConsulta: TClientDataSet;
+    QExpNuvem: TSQLQuery;
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure ExportarNuvem(ACodCliente: Integer);
+
     function LocalizarCNPJ(CodEmpresa: Integer; CNPJ: string): string;
     function LocalizarCPF(CodEmpresa: Integer; CPF: string): string;
   end;
@@ -32,6 +35,13 @@ uses uDM;
 {$R *.dfm}
 
 { TdmCliente }
+
+procedure TdmCliente.ExportarNuvem(ACodCliente: Integer);
+begin
+  QExpNuvem.Close;
+  QExpNuvem.Params[0].AsInteger := ACodCliente;
+  QExpNuvem.ExecSQL();
+end;
 
 function TdmCliente.LocalizarCNPJ(CodEmpresa: Integer; CNPJ: string): string;
 begin

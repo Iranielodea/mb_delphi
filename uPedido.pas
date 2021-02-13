@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, DBCtrls, Mask, DB, Grids, DBGrids, ComCtrls,
-  Buttons;
+  Buttons, udmPedido;
 
 type
   TfPedido = class(TForm)
@@ -485,7 +485,10 @@ begin
 end;
 
 procedure TfPedido.butSalvarClick(Sender: TObject);
-var vTm: String[1];
+var
+  vTm: String[1];
+  lPedido: TdmPedido;
+  bIncluindo: Boolean;
 begin
    with dm do
    begin
@@ -502,11 +505,27 @@ begin
       vTm:='A';
       dmRegra.Troca_Cliente_Venda;
    end;
+
+   bIncluindo := False;
+   if dsCad.DataSet.State in [dsInsert] then
+      bIncluindo := True;
+
    dm.Pedido.Post;
    dm.IniTrans;
    dm.SalvaTab(dm.Pedido);
    if vtm = 'A' then
       Altera_Carga;
+
+   if bIncluindo then
+   begin
+     lPedido := TdmPedido.Create(Self);
+     try
+      lPedido.ExportarNuvem(dm.PedidoNUM_PEDIDO.AsInteger);
+     finally
+      FreeAndNil(lPedido);
+     end;
+   end;
+
    dm.SalvaTrans;
    Dados_Anterior;
 

@@ -98,7 +98,8 @@ uses
   uClassContaBanco in 'uClassContaBanco.pas',
   uDMCargaVencto in 'uDMCargaVencto.pas' {dmCargaVencto: TDataModule},
   uFinanceiro in 'uFinanceiro.pas',
-  uExtratoCredito in 'uExtratoCredito.pas' {frmExtratoCredito};
+  uExtratoCredito in 'uExtratoCredito.pas' {frmExtratoCredito},
+  udmPedido in 'udmPedido.pas' {dmPedido: TDataModule};
 
 {$R *.res}
 

@@ -481,6 +481,8 @@ begin
 end;
 
 procedure TfCliente.butOkClick(Sender: TObject);
+var
+  lCliente: TdmCliente;
 begin
    if CboTipo.Text = 'F' then
    begin
@@ -493,7 +495,17 @@ begin
    end;
 
   if dsCad.DataSet.State in [dsEdit, dsInsert] then
+  begin
     inherited;
+  end;
+
+  lCliente := TdmCliente.Create(Self);
+  try
+    lCliente.ExportarNuvem(dm.ClienteCOD_CLIENTE.AsInteger);
+  finally
+    FreeAndNil(lCliente);
+  end;
+
 
   FPessoaCredito.Salvar(DM.ClienteCOD_CLIENTE.AsInteger);
 
