@@ -211,7 +211,7 @@ object fNovaConta: TfNovaConta
     BevelOuter = bvLowered
     TabOrder = 10
     object butOk: TBitBtn
-      Left = 208
+      Left = 209
       Top = 8
       Width = 97
       Height = 25

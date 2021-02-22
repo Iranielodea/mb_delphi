@@ -9,12 +9,14 @@ type
   TdmCarga = class(TDataModule)
     QPedido: TSQLQuery;
     QPedidoNOME: TStringField;
+    QExpNuvem: TSQLQuery;
     procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure LocalizarPedido(IdPedido: integer);
+    procedure ExportarNuvem(AId: Integer);
   end;
 
 var
@@ -31,6 +33,13 @@ implementation
 procedure TdmCarga.DataModuleDestroy(Sender: TObject);
 begin
   QPedido.Close;
+end;
+
+procedure TdmCarga.ExportarNuvem(AId: Integer);
+begin
+  QExpNuvem.Close;
+  QExpNuvem.Params[0].AsInteger := AId;
+  QExpNuvem.ExecSQL();
 end;
 
 procedure TdmCarga.LocalizarPedido(IdPedido: integer);

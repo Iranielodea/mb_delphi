@@ -250,6 +250,10 @@ begin
       dscad.DataSet.Cancel;
    dscad.DataSet.Close;
    dsItens.DataSet.Close;
+
+   if vgUsuario <> 'SUPERVISOR' then
+      dmRegra.ExportarPedidoWEB();
+
 end;
 
 procedure TfPedido.butExcItemClick(Sender: TObject);

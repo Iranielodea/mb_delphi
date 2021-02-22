@@ -293,7 +293,7 @@ begin
   Parametros.Visible := (vgUsuario = 'SUPERVISOR');
 
   if (vgUsuario <> 'SUPERVISOR') then
-    dmRegra.ExportarPedidoWEB();
+    dmRegra.ExportarContasWEB();
 end;
 
 procedure TfMenuPrin.Tab_CodigoClick(Sender: TObject);

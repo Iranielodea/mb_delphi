@@ -567,3 +567,35 @@ begin
     NEW.exportar_net = 'S';
 end
 --==
+--------------------------------------------------------------------------------
+-- versao 00025 - 21/02/2021
+UPDATE EMPRESA SET VERSAO = '00025';
+--==
+ALTER TABLE CONTAS ADD EXPORTAR_NET CHAR(1)
+--==
+ALTER TABLE CONTABANCO ADD EXPORTAR_NET CHAR(1)
+--==
+ALTER TABLE CARGA ADD EXPORTAR_NET CHAR(1)
+--==
+CREATE trigger trg_contas_bi0 for contas
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+CREATE trigger trg_contabanco_bi0 for contabanco
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+CREATE trigger trg_carga_bi0 for carga
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+

@@ -213,4 +213,45 @@ object dmRegra: TdmRegra
       Required = True
     end
   end
+  object QContasWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT COUNT(ID_CONTA) FROM CONTAS WHERE EXPORTAR_NET = '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 216
+    Top = 16
+    object IntegerField1: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
+  object QContaBancoWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      
+        'SELECT COUNT(ID_CONTABANCO) FROM CONTABANCO WHERE EXPORTAR_NET =' +
+        ' '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 216
+    Top = 64
+    object IntegerField2: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
+  object QCargaWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT COUNT(ID_CARGA) FROM CARGA WHERE EXPORTAR_NET = '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 216
+    Top = 120
+    object IntegerField3: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
 end

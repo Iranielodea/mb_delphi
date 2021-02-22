@@ -1,5 +1,6 @@
 inherited fContaBanco: TfContaBanco
   Caption = 'Contas Banc'#225'rias'
+  ExplicitTop = 8
   PixelsPerInch = 96
   TextHeight = 16
   inherited Grade: TDBGrid

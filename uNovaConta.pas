@@ -279,7 +279,8 @@ begin
 end;
 
 procedure TfNovaConta.butOkClick(Sender: TObject);
-var i: integer;
+var
+  i: integer;
 begin
    if trim(Documento.Text) = '' then
    begin
@@ -313,7 +314,6 @@ begin
    end;
    if ValidaDatas(DataEmissao.Text,DataVencimento.Text) = false then
       exit;
-
 
    dm.Get_Contas('0');
    for i:=1 to QtdeParcelas.Value do

@@ -1303,10 +1303,6 @@ object fCargaII: TfCargaII
     object TabSheet3: TTabSheet
       Caption = 'Usu'#225'rio'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -1563,8 +1559,8 @@ object fCargaII: TfCargaII
       OnClick = butCondClick
     end
     object butNovo: TBitBtn
-      Left = 119
-      Top = 8
+      Left = 116
+      Top = 6
       Width = 100
       Height = 25
       Caption = 'F2-&Novo'

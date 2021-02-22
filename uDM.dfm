@@ -1740,8 +1740,8 @@ object DM: TDM
       #13#10'COD_PAGTO, '#13#10'DATA_EMISSAO, '#13#10'DATA_PAGO, '#13#10'DATA_VENCTO, '#13#10'DIAS,' +
       ' '#13#10'DOCUMENTO, '#13#10'ID_CONTA, '#13#10'ID_CONTABANCO,'#13#10'ID_PEDIDO,'#13#10'NUM_PEDI' +
       'DO, '#13#10'SEQ_CONTA, '#13#10'SITUACAO, '#13#10'TIPO_CONTA, '#13#10'USU_ALT, '#13#10'USU_INC,' +
-      ' '#13#10'VALOR_ORIGINAL, '#13#10'VALOR_PAGAR, '#13#10'VALOR_PAGO '#13#10'from CONTAS'#13#10' w' +
-      'here ID_CONTA = :ID_CONTA'
+      ' '#13#10'VALOR_ORIGINAL, '#13#10'VALOR_PAGAR, '#13#10'VALOR_PAGO,'#13#10'exportar_net'#13#10'f' +
+      'rom CONTAS'#13#10' where ID_CONTA = :ID_CONTA'
     MaxBlobSize = -1
     Params = <
       item
@@ -1846,6 +1846,12 @@ object DM: TDM
     object dtContasID_PEDIDO: TIntegerField
       FieldName = 'ID_PEDIDO'
       ProviderFlags = [pfInUpdate]
+    end
+    object dtContasEXPORTAR_NET: TStringField
+      FieldName = 'EXPORTAR_NET'
+      ProviderFlags = [pfInUpdate]
+      FixedChar = True
+      Size = 1
     end
   end
   object dspForma_Pagto: TDataSetProvider
@@ -3313,6 +3319,11 @@ object DM: TDM
     end
     object ContasID_PEDIDO: TIntegerField
       FieldName = 'ID_PEDIDO'
+    end
+    object ContasEXPORTAR_NET: TStringField
+      FieldName = 'EXPORTAR_NET'
+      FixedChar = True
+      Size = 1
     end
     object ContasC_VALORTOTAL: TAggregateField
       Alignment = taRightJustify

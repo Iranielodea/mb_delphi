@@ -1113,6 +1113,8 @@ type
     dtCargaNOME_USINA: TStringField;
     CargaCOD_USINA: TIntegerField;
     CargaNOME_USINA: TStringField;
+    dtContasEXPORTAR_NET: TStringField;
+    ContasEXPORTAR_NET: TStringField;
     procedure EstadoBeforePost(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure EstadoReconcileError(DataSet: TCustomClientDataSet;
@@ -2259,7 +2261,10 @@ begin
          Abort;
    end;
    if Contas.State = dsInsert then
+   begin
       ContasID_CONTA.AsInteger:=Incrementa('CONTAS','1');
+      ContasEXPORTAR_NET.AsString := 'S';
+   end;
    Grava_Usuario('CONTAS');
 end;
 

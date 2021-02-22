@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uBase, DB, DBCtrls, Mask, ComCtrls, Grids, DBGrids, ExtCtrls,
-  StdCtrls, Buttons, uClassContaBanco;
+  StdCtrls, Buttons, uClassContaBanco, uDMContaBanco;
 
 type
   TfContaBanco = class(TfBase)
@@ -18,6 +18,8 @@ type
     DBCheckBox1: TDBCheckBox;
     procedure FormActivate(Sender: TObject);
     procedure butPesqClick(Sender: TObject);
+    procedure butOkClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     FPesquisa: Boolean;
@@ -32,9 +34,28 @@ var
 
 implementation
 
-uses uDM;
+uses uDM, uDMRegra;
 
 {$R *.dfm}
+
+procedure TfContaBanco.butOkClick(Sender: TObject);
+var
+  bIncluindo: Boolean;
+  lContaBanco: TdmContaBanco;
+begin
+  bIncluindo := (dm.ContaBanco.State = dsInsert);
+  inherited;
+
+  if bIncluindo then
+  begin
+    lContaBanco := TdmContaBanco.Create(Self);
+    try
+      lContaBanco.ExportarNuvem(dm.ContaBancoID_CONTABANCO.AsInteger);
+    finally
+      FreeAndNil(lContaBanco);
+    end;
+  end;
+end;
 
 procedure TfContaBanco.butPesqClick(Sender: TObject);
 begin
@@ -53,6 +74,13 @@ begin
    TabSheet1.TabVisible:=false;
    GetConta();
   //inherited;
+end;
+
+procedure TfContaBanco.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  if (vgUsuario <> 'SUPERVISOR') then
+    dmRegra.ExportarContaBancoWEB();
 end;
 
 procedure TfContaBanco.GetConta;

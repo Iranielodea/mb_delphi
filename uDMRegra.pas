@@ -29,6 +29,12 @@ type
     QPedidoWEBCOUNT: TIntegerField;
     QTransportadorWEBCOUNT: TIntegerField;
     QClienteWEBCOUNT: TIntegerField;
+    QContasWEB: TSQLQuery;
+    IntegerField1: TIntegerField;
+    QContaBancoWEB: TSQLQuery;
+    IntegerField2: TIntegerField;
+    QCargaWEB: TSQLQuery;
+    IntegerField3: TIntegerField;
   private
     FCodigo: Integer;
     FNome: string;
@@ -62,6 +68,9 @@ type
     procedure ExportarTransportadorWEB;
     procedure ExportarPedidoWEB;
     procedure ExportarPedidoItensWEB;
+    procedure ExportarContasWEB;
+    procedure ExportarContaBancoWEB;
+    procedure ExportarCargaWEB;
 
     function ContasCarga(inCarga, Tipo: String): boolean;
     procedure Altera_Visto(Cod_Cliente, Cod_Contato: String);
@@ -240,6 +249,24 @@ begin
    Executa('delete from PEDIDO where NUM_PEDIDO = '+inCodigo);
 end;
 
+procedure TdmRegra.ExportarCargaWEB;
+var
+  arquivo: AnsiString;
+begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
+  QCargaWEB.Close;
+  QCargaWEB.Open;
+
+  arquivo := 'MB.UI.exe CARGA EXPORTAR 0 "" ""';
+
+  if QCargaWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QCargaWEB.Close;
+end;
+
 procedure TdmRegra.ExportarClienteWEB;
 var
   arquivo: AnsiString;
@@ -256,6 +283,42 @@ begin
     WinExec(PAnsiChar(arquivo), SW_HIDE);
 
   QClienteWEB.Close;
+end;
+
+procedure TdmRegra.ExportarContaBancoWEB;
+var
+  arquivo: AnsiString;
+begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
+  QContaBancoWEB.Close;
+  QContaBancoWEB.Open;
+
+  arquivo := 'MB.UI.exe CONTA_BANCO EXPORTAR 0 "" ""';
+
+  if QContaBancoWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QContaBancoWEB.Close;
+end;
+
+procedure TdmRegra.ExportarContasWEB;
+var
+  arquivo: AnsiString;
+begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
+  QContasWEB.Close;
+  QContasWEB.Open;
+
+  arquivo := 'MB.UI.exe CONTAS EXPORTAR 0 "" ""';
+
+  if QPedidoWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QContasWEB.Close;
 end;
 
 procedure TdmRegra.ExportarPedidoItensWEB;

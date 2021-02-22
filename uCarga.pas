@@ -411,6 +411,9 @@ begin
       dscad.DataSet.Cancel;
    dscad.DataSet.Close;
    dm.Cad_Obs.Close;
+
+  if vgUsuario <> 'SUPERVISOR' then
+    dmRegra.ExportarCargaWEB();
 end;
 
 procedure TfCarga.FormDestroy(Sender: TObject);
@@ -801,7 +804,9 @@ begin
 end;
 
 procedure TfCarga.butSalvarClick(Sender: TObject);
-var vlOper: String[1];
+var
+  vlOper: String[1];
+  lCarga: TdmCarga;
 begin
    if trim(Num_Carga.Text) = '' then
    begin
@@ -870,14 +875,22 @@ begin
    dm.SalvaTab(dm.Carga);
    if dm.CargaSITUACAO.Text = 'C' then
       ExecutaSql('delete from CONTAS where COD_EMPRESA = '+vgCod_Empresa+' and NUM_PEDIDO = '+id_Carga.text+' and TIPO_CONTA = 2');
-      
+
     Dados_Obs('I');
     SalvarParcelas();
 
    dm.SalvaTrans;
    Saldo;
    if vlOper = 'I' then
+   begin
+      lCarga := TdmCarga.Create(Self);
+      try
+        lCarga.ExportarNuvem(DM.CargaID_CARGA.AsInteger);
+      finally
+        FreeAndNil(lCarga);
+      end;
       butCondClick(self);
+   end;
 end;
 
 procedure TfCarga.FormKeyPress(Sender: TObject; var Key: Char);
