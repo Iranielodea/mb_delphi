@@ -101,7 +101,14 @@ uses
   uExtratoCredito in 'uExtratoCredito.pas' {frmExtratoCredito},
   udmPedido in 'udmPedido.pas' {dmPedido: TDataModule},
   uDMContaBanco in 'uDMContaBanco.pas' {dmContaBanco: TDataModule},
-  uDMContas in 'uDMContas.pas' {dmContas: TDataModule};
+  uDMContas in 'uDMContas.pas' {dmContas: TDataModule},
+  uContaBancoModel in 'Entidades\uContaBancoModel.pas',
+  uRepositorioContaBanco in 'Repositorios\uRepositorioContaBanco.pas',
+  uServicoContaBanco in 'Servicos\uServicoContaBanco.pas',
+  uContaModel in 'Entidades\uContaModel.pas',
+  uFuncoesJSON in 'uFuncoesJSON.pas',
+  uServicoConta in 'Servicos\uServicoConta.pas',
+  uRepositorioConta in 'Repositorios\uRepositorioConta.pas';
 
 {$R *.res}
 

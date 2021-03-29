@@ -27,6 +27,7 @@ type
     QEmpresaNOME: TStringField;
     QEmpresaVERSAO: TStringField;
     lblVersao: TLabel;
+    SQLConnection1: TSQLConnection;
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure CodEmpresaExit(Sender: TObject);

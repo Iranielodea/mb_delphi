@@ -269,4 +269,8 @@ object fSenha: TfSenha
       Size = 10
     end
   end
+  object SQLConnection1: TSQLConnection
+    Left = 408
+    Top = 80
+  end
 end

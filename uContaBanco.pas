@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uBase, DB, DBCtrls, Mask, ComCtrls, Grids, DBGrids, ExtCtrls,
-  StdCtrls, Buttons, uClassContaBanco, uDMContaBanco;
+  StdCtrls, Buttons, uClassContaBanco, uDMContaBanco, uContaBancoModel,
+  uServicoContaBanco, System.Generics.Collections;
 
 type
   TfContaBanco = class(TfBase)
@@ -42,19 +43,44 @@ procedure TfContaBanco.butOkClick(Sender: TObject);
 var
   bIncluindo: Boolean;
   lContaBanco: TdmContaBanco;
+  model: TContaBancoModel;
+  servico: TServicoContaBanco;
+  lista: TObjectList<TContaBancoModel>;
 begin
   bIncluindo := (dm.ContaBanco.State = dsInsert);
   inherited;
 
-  if bIncluindo then
-  begin
-    lContaBanco := TdmContaBanco.Create(Self);
-    try
-      lContaBanco.ExportarNuvem(dm.ContaBancoID_CONTABANCO.AsInteger);
-    finally
-      FreeAndNil(lContaBanco);
-    end;
+  lista := TObjectList<TContaBancoModel>.Create();
+  model := TContaBancoModel.Create;
+
+  try
+    servico := TServicoContaBanco.Create;
+    model.Codigo := dm.ContaBancoID_CONTABANCO.AsInteger;
+    model.NumConta := dm.ContaBancoNUM_CONTA.AsString;
+    model.Agencia := dm.ContaBancoAGENCIA.AsString;
+    model.NomeBanco := dm.ContaBancoBANCO.AsString;
+    model.Ativo := dm.ContaBancoATIVO.AsString;
+    model.CnpjCpf := dm.ContaBancoCNPJ_CPF.AsString;
+    lista.Add(model);
+
+    if bIncluindo then
+      servico.Incluir(lista)
+    else
+      servico.Alterar(lista);
+  finally
+    FreeAndNil(servico);
+    FreeAndNil(lista);
   end;
+
+//  if bIncluindo then
+//  begin
+//    lContaBanco := TdmContaBanco.Create(Self);
+//    try
+//      lContaBanco.ExportarNuvem(dm.ContaBancoID_CONTABANCO.AsInteger);
+//    finally
+//      FreeAndNil(lContaBanco);
+//    end;
+//  end;
 end;
 
 procedure TfContaBanco.butPesqClick(Sender: TObject);

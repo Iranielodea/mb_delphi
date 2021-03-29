@@ -1,6 +1,8 @@
 inherited fContaBanco: TfContaBanco
   Caption = 'Contas Banc'#225'rias'
-  ExplicitTop = 8
+  ExplicitTop = -53
+  ExplicitWidth = 748
+  ExplicitHeight = 515
   PixelsPerInch = 96
   TextHeight = 16
   inherited Grade: TDBGrid
@@ -40,6 +42,9 @@ inherited fContaBanco: TfContaBanco
       Height = 297
       ExplicitHeight = 297
       inherited sheetCad: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 27
+        ExplicitWidth = 730
         ExplicitHeight = 266
         inherited Panel3: TPanel
           Height = 266
@@ -127,6 +132,9 @@ inherited fContaBanco: TfContaBanco
         end
       end
       inherited TabSheet1: TTabSheet
+        ExplicitLeft = 4
+        ExplicitTop = 27
+        ExplicitWidth = 730
         ExplicitHeight = 266
         inherited Panel4: TPanel
           Height = 266

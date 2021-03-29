@@ -39,6 +39,7 @@ type
     function CaminhoAssinatura: string;
     function RetornoTipoRelatorioAutorizacao: string;
     function CaminhoPDFCarga: string;
+    function URLBase: string;
   end;
 
 var
@@ -134,6 +135,13 @@ begin
   Result := sqlValorVALOR.AsString;
   sqlValor.Close;
 
+end;
+
+function TdmParametros.URLBase: string;
+begin
+  GetCodigo(4);
+  Result := LowerCase(sqlValorVALOR.AsString);
+  sqlValor.Close;
 end;
 
 function TdmParametros.CaminhoAssinatura: string;
