@@ -6,7 +6,9 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uBase, DB, DBCtrls, Mask, ComCtrls, Grids, DBGrids, ExtCtrls,
   StdCtrls, Buttons, uClassContaBanco, uDMContaBanco, uContaBancoModel,
-  uServicoContaBanco, System.Generics.Collections;
+  uServicoContaBanco, System.Generics.Collections,
+  uServicoConta, uContaModel, uCargaModel, uServicoCarga, UUtil,
+  uRepositorioContaBanco;
 
 type
   TfContaBanco = class(TfBase)
@@ -43,7 +45,6 @@ procedure TfContaBanco.butOkClick(Sender: TObject);
 var
   bIncluindo: Boolean;
   lContaBanco: TdmContaBanco;
-  model: TContaBancoModel;
   servico: TServicoContaBanco;
   lista: TObjectList<TContaBancoModel>;
 begin
@@ -51,17 +52,9 @@ begin
   inherited;
 
   lista := TObjectList<TContaBancoModel>.Create();
-  model := TContaBancoModel.Create;
-
+  servico := TServicoContaBanco.Create;
   try
-    servico := TServicoContaBanco.Create;
-    model.Codigo := dm.ContaBancoID_CONTABANCO.AsInteger;
-    model.NumConta := dm.ContaBancoNUM_CONTA.AsString;
-    model.Agencia := dm.ContaBancoAGENCIA.AsString;
-    model.NomeBanco := dm.ContaBancoBANCO.AsString;
-    model.Ativo := dm.ContaBancoATIVO.AsString;
-    model.CnpjCpf := dm.ContaBancoCNPJ_CPF.AsString;
-    lista.Add(model);
+    lista.Add(servico.ObterPorCodigo(dm.ContaBancoID_CONTABANCO.AsInteger));
 
     if bIncluindo then
       servico.Incluir(lista)

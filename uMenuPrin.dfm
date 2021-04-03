@@ -736,6 +736,10 @@ object fMenuPrin: TfMenuPrin
         Caption = 'Teste'
         OnClick = este1Click
       end
+      object ExportarWEB: TMenuItem
+        Caption = 'Exportar para WEB'
+        OnClick = ExportarWEBClick
+      end
     end
   end
 end

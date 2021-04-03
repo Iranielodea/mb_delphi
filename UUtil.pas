@@ -363,31 +363,46 @@ begin
 end;
 
 function TiraAcento(Campo: string): string;
-var i: integer;
-   vv,aux: string[1];
-   vcampo,vnome: string[60];
-begin
-   vcampo:=Campo;
-   vnome:='';
-   for i:=1 to length(vcampo) do
-   begin
-      vv:=copy(vcampo,i,1);
-      aux:=copy(vcampo,i,1);
-      if (uppercase(vv) = 'Á') or (uppercase(vv) = 'Ã') or (uppercase(vv) = 'À') or (uppercase(vv) = 'Â')then
-         aux:='A';
-      if (uppercase(vv) = 'É') or (uppercase(vv) = 'Ê')then
-         aux:='E';
-      if (uppercase(vv) = 'Í') then
-         aux:='I';
-      if (uppercase(vv) = 'Ó') or (uppercase(vv) = 'Õ') or (uppercase(vv) = 'Ô')then
-         aux:='O';
-      if (uppercase(vv) = 'Ú') or (uppercase(vv) = 'Ü')then
-         aux:='U';
-      if (uppercase(vv) = 'Ç') then
-         aux:='C';
-      vnome:=vnome + aux;
-   end;
-   result:=vnome;
+Const
+  ComAcento = 'àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜºª';
+  SemAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU  ';
+var
+//  i: integer;
+//   vv,aux: string[1];
+//   vcampo,vnome: string[60];
+   x : Integer;
+Begin
+  For x := 1 to Length(Campo) do
+  Begin
+    if Pos(Campo[x],ComAcento) <> 0 Then
+      Campo[x] := SemAcento[Pos(Campo[x],ComAcento)];
+  end;
+  Result := Campo;
+
+
+//   vcampo:=Campo;
+//   vnome:='';
+//   for i:=1 to length(vcampo) do
+//   begin
+//      vv:=copy(vcampo,i,1);
+//      aux:=copy(vcampo,i,1);
+//      if (uppercase(vv) = 'Á') or (uppercase(vv) = 'Ã') or (uppercase(vv) = 'À') or (uppercase(vv) = 'Â')then
+//         aux:='A';
+//      if (uppercase(vv) = 'É') or (uppercase(vv) = 'Ê')then
+//         aux:='E';
+//      if (uppercase(vv) = 'Í') then
+//         aux:='I';
+//      if (uppercase(vv) = 'Ó') or (uppercase(vv) = 'Õ') or (uppercase(vv) = 'Ô')then
+//         aux:='O';
+//      if (uppercase(vv) = 'Ú') or (uppercase(vv) = 'Ü')then
+//         aux:='U';
+//      if (uppercase(vv) = 'Ç') then
+//         aux:='C';
+//      if vv = 'º' then
+//        aux := '';
+//      vnome:=vnome + aux;
+//   end;
+//   result:=vnome;
 end;
 
 procedure ComandoExec(Tabela: TIBQuery; Comando: string);

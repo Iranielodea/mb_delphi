@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, Buttons, ToolWin, uCargaTeste, uCargaII, uDMRegra,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, uExportarWEB;
 
 type
   TfMenuPrin = class(TForm)
@@ -76,6 +76,7 @@ type
     ExecutarComandos: TMenuItem;
     extosdeUnidades1: TMenuItem;
     este1: TMenuItem;
+    ExportarWEB: TMenuItem;
     procedure EstadosClick(Sender: TObject);
     procedure CidadesClick(Sender: TObject);
     procedure Forma_PagtoClick(Sender: TObject);
@@ -124,6 +125,7 @@ type
     procedure ExecutarComandosClick(Sender: TObject);
     procedure extosdeUnidades1Click(Sender: TObject);
     procedure este1Click(Sender: TObject);
+    procedure ExportarWEBClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -308,6 +310,13 @@ begin
     frmExecutarComando := TfrmExecutarComando.Create(Self);
     frmExecutarComando.ShowModal;
     frmExecutarComando.free;
+end;
+
+procedure TfMenuPrin.ExportarWEBClick(Sender: TObject);
+begin
+  fExportarWEB := TfExportarWEB.Create(Self);
+  fExportarWEB.ShowModal;
+  fExportarWEB.Free;
 end;
 
 procedure TfMenuPrin.ExpurgosClick(Sender: TObject);

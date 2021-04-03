@@ -401,6 +401,13 @@
         <DCCReference Include="uFuncoesJSON.pas"/>
         <DCCReference Include="Servicos\uServicoConta.pas"/>
         <DCCReference Include="Repositorios\uRepositorioConta.pas"/>
+        <DCCReference Include="Entidades\uCargaModel.pas"/>
+        <DCCReference Include="Repositorios\uRepositorioCarga.pas"/>
+        <DCCReference Include="Servicos\uServicoCarga.pas"/>
+        <DCCReference Include="uExportarWEB.pas">
+            <Form>fExportarWEB</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

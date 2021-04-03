@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ExtCtrls, Mask, FMTBcd, DB, SqlExpr, DBClient,
   ppCtrls, ppPrnabl, ppClass, ppDB, ppBands, ppCache, ppProd, ppReport,
-  ppComm, ppRelatv, ppDBPipe, ppViewr, ppVar;
+  ppComm, ppRelatv, ppDBPipe, ppViewr, ppVar, ppDesignLayer, ppParameter;
 
 type
   TfICaixa = class(TForm)

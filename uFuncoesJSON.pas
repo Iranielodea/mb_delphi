@@ -6,6 +6,7 @@ uses
   System.SysUtils, REST.Json;
 
 type
+
   TMsgJson = class
   private
     FMensagem: string;

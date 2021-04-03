@@ -132,9 +132,6 @@ object fICaixa: TfICaixa
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 0
-      OnClick = butImprimirClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000C40E0000C40E00000000000000000000FF00FFFF00FF
@@ -187,6 +184,9 @@ object fICaixa: TfICaixa
         FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA7A7A7A7A7A7A7A7A7A7A7A7B5
         B5B5B5B5B5FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 0
+      OnClick = butImprimirClick
     end
     object butSair: TBitBtn
       Left = 216
@@ -199,9 +199,6 @@ object fICaixa: TfICaixa
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 1
-      OnClick = butSairClick
       Glyph.Data = {
         36060000424D3606000000000000360000002800000020000000100000000100
         18000000000000060000C40E0000C40E00000000000000000000FF00FFFF00FF
@@ -254,10 +251,13 @@ object fICaixa: TfICaixa
         FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF92929290
         9090808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 1
+      OnClick = butSairClick
     end
   end
   object QSaldoAntP: TSQLQuery
-    SQLConnection = DM.BancoDados
+    MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
@@ -299,6 +299,7 @@ object fICaixa: TfICaixa
       '   and PAG.TIPO_CONTA = 3'
       '   group by PAG.TIPO_CONTA'
       'order by 1')
+    SQLConnection = DM.BancoDados
     Left = 352
     Top = 24
     object QSaldoAntPSALDO: TFloatField
@@ -306,7 +307,7 @@ object fICaixa: TfICaixa
     end
   end
   object QSaldoAntR: TSQLQuery
-    SQLConnection = DM.BancoDados
+    MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
@@ -348,6 +349,7 @@ object fICaixa: TfICaixa
       '   and PAG.TIPO_CONTA = 3'
       '   GROUP BY PAG.TIPO_CONTA'
       'order by 1')
+    SQLConnection = DM.BancoDados
     Left = 416
     Top = 24
     object QSaldoAntRSALDO: TFloatField
@@ -382,7 +384,7 @@ object fICaixa: TfICaixa
     end
   end
   object Qprev: TSQLQuery
-    SQLConnection = DM.BancoDados
+    MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
@@ -426,6 +428,7 @@ object fICaixa: TfICaixa
       '   and CON.TIPO_CONTA IN (2,3)'
       '   order by 1'
       '')
+    SQLConnection = DM.BancoDados
     Left = 344
     Top = 120
     object QprevDATA_VENCTO: TSQLTimeStampField
@@ -490,11 +493,13 @@ object fICaixa: TfICaixa
   end
   object Relatorio1: TppReport
     AutoStop = False
+    DataPipeline = dbRel
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -502,19 +507,54 @@ object fICaixa: TfICaixa
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Relatorio1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 280
     Top = 120
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'dbRel'
     object ppHeaderBand1: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 27781
       mmPrintPosition = 0
       object ppLabel1: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         Caption = 'Data Vencto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -530,6 +570,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel2: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -545,6 +586,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel3: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'Pagar'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -560,6 +602,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel4: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Diferen'#231'a'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -575,6 +618,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel5: TppLabel
         UserName = 'Label5'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -591,7 +635,7 @@ object fICaixa: TfICaixa
       object ppLine1: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 25400
@@ -600,6 +644,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel6: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Relat'#243'rio de Previs'#227'o de Caixa'
         Font.Charset = DEFAULT_CHARSET
@@ -617,6 +662,7 @@ object fICaixa: TfICaixa
       end
       object lblData: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -634,6 +680,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable1: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -648,6 +695,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable2: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -663,6 +711,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable3: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -678,6 +727,7 @@ object fICaixa: TfICaixa
       end
       object lblSaldoAnt: TppLabel
         UserName = 'lblSaldoAnt'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblSaldoAnt'
         Font.Charset = DEFAULT_CHARSET
@@ -695,12 +745,16 @@ object fICaixa: TfICaixa
       end
     end
     object ppDetailBand1: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3704
       mmPrintPosition = 0
       object ppDBText2: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'DATA'
+        DataPipeline = dbRel
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Courier New'
@@ -717,7 +771,9 @@ object fICaixa: TfICaixa
       end
       object ppDBText1: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'RECEBER'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -736,7 +792,9 @@ object fICaixa: TfICaixa
       end
       object ppDBText3: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'PAGAR'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -755,7 +813,9 @@ object fICaixa: TfICaixa
       end
       object ppDBText4: TppDBText
         UserName = 'DBText4'
+        HyperlinkEnabled = False
         DataField = 'DIFERENCA'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -774,7 +834,9 @@ object fICaixa: TfICaixa
       end
       object ppDBText5: TppDBText
         UserName = 'DBText5'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -793,12 +855,13 @@ object fICaixa: TfICaixa
       end
     end
     object ppSummaryBand1: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 13229
       mmPrintPosition = 0
       object ppLine2: TppLine
         UserName = 'Line2'
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1852
         mmLeft = 0
         mmTop = 0
@@ -807,7 +870,9 @@ object fICaixa: TfICaixa
       end
       object ppDBCalc1: TppDBCalc
         UserName = 'DBCalc1'
+        HyperlinkEnabled = False
         DataField = 'RECEBER'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -825,7 +890,9 @@ object fICaixa: TfICaixa
       end
       object ppDBCalc2: TppDBCalc
         UserName = 'DBCalc2'
+        HyperlinkEnabled = False
         DataField = 'PAGAR'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -843,7 +910,9 @@ object fICaixa: TfICaixa
       end
       object ppDBCalc3: TppDBCalc
         UserName = 'DBCalc3'
+        HyperlinkEnabled = False
         DataField = 'DIFERENCA'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -861,6 +930,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel7: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Total=>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -876,6 +946,15 @@ object fICaixa: TfICaixa
         BandType = 7
       end
     end
+    object ppDesignLayers1: TppDesignLayers
+      object ppDesignLayer1: TppDesignLayer
+        UserName = 'Foreground'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList1: TppParameterList
+    end
   end
   object dsRel: TDataSource
     DataSet = Rel
@@ -883,7 +962,7 @@ object fICaixa: TfICaixa
     Top = 120
   end
   object Qreal: TSQLQuery
-    SQLConnection = DM.BancoDados
+    MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
@@ -923,6 +1002,7 @@ object fICaixa: TfICaixa
       '   and CON.TIPO_CONTA IN (2,3)'
       '   order by 1'
       '')
+    SQLConnection = DM.BancoDados
     Left = 400
     Top = 120
     object QrealDATA_PAGO: TSQLTimeStampField
@@ -937,11 +1017,13 @@ object fICaixa: TfICaixa
   end
   object Relatorio2: TppReport
     AutoStop = False
+    DataPipeline = dbRel
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -949,19 +1031,54 @@ object fICaixa: TfICaixa
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Relatorio1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 280
     Top = 168
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'dbRel'
     object ppHeaderBand2: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 27781
       mmPrintPosition = 0
       object ppLabel8: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         Caption = 'Data Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -977,6 +1094,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel10: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -994,7 +1112,7 @@ object fICaixa: TfICaixa
       object ppLine3: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 25400
@@ -1003,6 +1121,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel13: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Relat'#243'rio de Caixa Realizado'
         Font.Charset = DEFAULT_CHARSET
@@ -1020,6 +1139,7 @@ object fICaixa: TfICaixa
       end
       object lblData1: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -1037,6 +1157,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable4: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1051,6 +1172,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable5: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1066,6 +1188,7 @@ object fICaixa: TfICaixa
       end
       object ppSystemVariable6: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1081,6 +1204,7 @@ object fICaixa: TfICaixa
       end
       object lblSaldoAnt1: TppLabel
         UserName = 'lblSaldoAnt'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblSaldoAnt'
         Font.Charset = DEFAULT_CHARSET
@@ -1098,12 +1222,16 @@ object fICaixa: TfICaixa
       end
     end
     object ppDetailBand2: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3704
       mmPrintPosition = 0
       object ppDBText6: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'DATA'
+        DataPipeline = dbRel
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Courier New'
@@ -1120,7 +1248,9 @@ object fICaixa: TfICaixa
       end
       object ppDBText8: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'PAGAR'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1139,12 +1269,13 @@ object fICaixa: TfICaixa
       end
     end
     object ppSummaryBand2: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 13229
       mmPrintPosition = 0
       object ppLine4: TppLine
         UserName = 'Line2'
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1852
         mmLeft = 0
         mmTop = 0
@@ -1153,7 +1284,9 @@ object fICaixa: TfICaixa
       end
       object ppDBCalc5: TppDBCalc
         UserName = 'DBCalc2'
+        HyperlinkEnabled = False
         DataField = 'PAGAR'
+        DataPipeline = dbRel
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1171,6 +1304,7 @@ object fICaixa: TfICaixa
       end
       object ppLabel16: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Total=>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1185,6 +1319,15 @@ object fICaixa: TfICaixa
         mmWidth = 13758
         BandType = 7
       end
+    end
+    object ppDesignLayers2: TppDesignLayers
+      object ppDesignLayer2: TppDesignLayer
+        UserName = 'Foreground1'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList2: TppParameterList
     end
   end
 end

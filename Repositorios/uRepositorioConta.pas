@@ -43,6 +43,7 @@ end;
 function TRepositorioConta.ObterPorExportarNET: TObjectList<TContaModel>;
 var
   qry: TSQLQuery;
+  resultado: TObjectList<TContaModel>;
 begin
   qry := TSQLQuery.Create(nil);
   qry.SQLConnection := dm.BancoDados;
@@ -50,7 +51,8 @@ begin
     qry.SQL.Text := RetornarCampos();
     qry.SQL.Add(' where CON.exportar_net = ''S''');
     qry.Open;
-    Result := RetornarDados(qry);
+    resultado := RetornarDados(qry);
+    Result := resultado;
   finally
     FreeAndNil(qry);
   end;
@@ -78,11 +80,13 @@ begin
     qry.AppendLine('    con.tipo_conta,');
     qry.AppendLine('    con.situacao,');
     qry.AppendLine('    con.documento,');
+    qry.AppendLine('    con.cod_cliente,');
+    qry.AppendLine('    con.cod_for,');
     qry.AppendLine('    pgt.desc_pagto as nome_forma_pagto,');
     qry.AppendLine('    con.id_contabanco as conta_banco_id,');
     qry.AppendLine('    con.id_pedido as pedido_id');
     qry.AppendLine('from CONTAS CON');
-    qry.AppendLine('    inner join CLIENTE CLI on CON.cod_cliente = CLI.cod_cliente');
+    qry.AppendLine('    left join CLIENTE CLI on CON.cod_cliente = CLI.cod_cliente');
     qry.AppendLine('    left join FORNECEDOR FO on CON.cod_for = FO.cod_for');
     qry.AppendLine('    left join forma_pagto PGT on CON.cod_pagto = PGT.cod_pagto');
 
@@ -97,6 +101,7 @@ var
   lista: TObjectList<TContaModel>;
   model: TContaModel;
 begin
+  lista := TObjectList<TContaModel>.Create();
   while not qry.Eof do
   begin
     model := TContaModel.Create;
@@ -118,6 +123,8 @@ begin
     model.NomeFormaPagto := qry.FieldByName('nome_forma_pagto').AsString;
     model.ContaBancoId := qry.FieldByName('conta_banco_id').AsInteger;
     model.PedidoId := qry.FieldByName('pedido_id').AsInteger;
+    model.CodCliente := qry.FieldByName('cod_cliente').AsInteger;
+    model.CodFor := qry.FieldByName('cod_for').AsInteger;
 
     lista.Add(model);
     qry.Next;

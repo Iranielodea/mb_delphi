@@ -108,7 +108,11 @@ uses
   uContaModel in 'Entidades\uContaModel.pas',
   uFuncoesJSON in 'uFuncoesJSON.pas',
   uServicoConta in 'Servicos\uServicoConta.pas',
-  uRepositorioConta in 'Repositorios\uRepositorioConta.pas';
+  uRepositorioConta in 'Repositorios\uRepositorioConta.pas',
+  uCargaModel in 'Entidades\uCargaModel.pas',
+  uRepositorioCarga in 'Repositorios\uRepositorioCarga.pas',
+  uServicoCarga in 'Servicos\uServicoCarga.pas',
+  uExportarWEB in 'uExportarWEB.pas' {fExportarWEB};
 
 {$R *.res}
 

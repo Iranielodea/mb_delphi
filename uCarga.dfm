@@ -1279,7 +1279,7 @@ object fCarga: TfCarga
           Visible = False
         end
         object MemoObs: TMemo
-          Left = 8
+          Left = 9
           Top = 345
           Width = 721
           Height = 65

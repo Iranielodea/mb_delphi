@@ -5,7 +5,9 @@ interface
 uses
   System.SysUtils, uContaModel,Data.DBXJSON, REST.Client,
   Data.Bind.Components, Data.Bind.ObjectScope, IPPeerClient, REST.Types,
-  udmParametros, uFuncoesJSON, System.Generics.Collections;
+  udmParametros, uFuncoesJSON, System.Generics.Collections, uRepositorioConta,
+  Vcl.Dialogs, System.Classes, System.StrUtils, System.WideStrUtils, System.Math,
+  uDM;
 
 type
   TServicoConta = class
@@ -15,6 +17,10 @@ type
   public
     procedure Incluir(AModel: TObjectList<TContaModel>);
     procedure Alterar(AModel: TObjectList<TContaModel>);
+    procedure ExportarNET();
+
+    function ObterPorDataEmissao(ADataInicial, ADataFinal: TDateTime): TObjectList<TContaModel>;
+
     constructor Create(); overload;
   end;
 
@@ -64,8 +70,8 @@ begin
       json.AddPair('id', TJSONNumber.Create(0));
       json.AddPair('codigo', TJSONNumber.Create(Model.Codigo));
       json.AddPair('numPedido', TJSONNumber.Create(Model.NumPedido));
-      json.AddPair('nomeCliente', Model.NomeCliente);
-      json.AddPair('nomeFornecedor', Model.NomeFornecedor);
+      json.AddPair('nomeCliente', TJSONString.Create(Model.NomeCliente));
+      json.AddPair('nomeFornecedor', TJSONString.Create(Model.NomeFornecedor));
       json.AddPair('dataEmissao', FormatDateTime('yyyy-mm-dd', Model.DataEmissao));
       json.AddPair('valorPagar', TJSONNumber.Create(Model.ValorPagar));
       json.AddPair('dataVencto', FormatDateTime('yyyy-mm-dd', Model.DataVencto));
@@ -80,9 +86,9 @@ begin
       json.AddPair('seqConta', TJSONNumber.Create(Model.SeqConta));
       json.AddPair('valorOriginal', TJSONNumber.Create(Model.ValorOriginal));
       json.AddPair('tipoConta', TJSONNumber.Create(Model.TipoConta));
-      json.AddPair('situacao', Model.Situacao);
-      json.AddPair('documento', Model.Documento);
-      json.AddPair('nomeFormaPagto', Model.NomeFormaPagto);
+      json.AddPair('situacao', TJSONString.Create(Model.Situacao));
+      json.AddPair('documento', TJSONString.Create(Model.Documento));
+      json.AddPair('nomeFormaPagto', TJSONString.Create(Model.NomeFormaPagto));
 
       if Model.ContaBancoId = 0 then
         json.AddPair('contaBancoId', TJSONNull.Create)
@@ -94,9 +100,18 @@ begin
       else
         json.AddPair('pedidoId', TJSONNumber.Create(Model.PedidoId));
 
+      if Model.CodCliente = 0 then
+        json.AddPair('codCliente', TJSONNull.Create)
+      else
+        json.AddPair('codCliente', TJSONNumber.Create(Model.CodCliente));
+
+      if Model.CodFor = 0 then
+        json.AddPair('codFor', TJSONNull.Create)
+      else
+        json.AddPair('codFor', TJSONNumber.Create(Model.CodFor));
+
       arrayItem.AddElement(json);
     end;
-
     Request.Client := Client;
     Request.Response := Response;
 
@@ -135,6 +150,33 @@ end;
 procedure TServicoConta.Incluir(AModel: TObjectList<TContaModel>);
 begin
   Gravar(0, AModel);
+end;
+
+function TServicoConta.ObterPorDataEmissao(ADataInicial,
+  ADataFinal: TDateTime): TObjectList<TContaModel>;
+var
+  repositorio: TRepositorioConta;
+begin
+  Result := repositorio.ObterPorDataEmissao(ADataInicial, ADataFinal);
+end;
+
+procedure TServicoConta.ExportarNET;
+var
+  repositorio: TRepositorioConta;
+  lista: TObjectList<TContaModel>;
+begin
+  repositorio := TRepositorioConta.Create;
+  try
+    lista := repositorio.ObterPorExportarNET();
+
+    if lista.Count > 0 then
+      Self.Incluir(lista);
+
+    dm.BancoDados.ExecuteDirect('UPDATE CONTAS set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+  finally
+    FreeAndNil(repositorio);
+    FreeAndNil(lista);
+  end;
 end;
 
 end.
