@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, Buttons, ToolWin, uCargaTeste, uCargaII, uDMRegra,
-  Vcl.ExtCtrls, uExportarWEB;
+  Vcl.ExtCtrls, uExportarWEB, uServicoCarga, uServicoConta;
 
 type
   TfMenuPrin = class(TForm)
@@ -128,6 +128,8 @@ type
     procedure ExportarWEBClick(Sender: TObject);
   private
     { Private declarations }
+    procedure ExportarCargasWEB;
+    procedure ExportarContasWEB;
   public
     { Public declarations }
   end;
@@ -295,7 +297,11 @@ begin
   Parametros.Visible := (vgUsuario = 'SUPERVISOR');
 
   if (vgUsuario <> 'SUPERVISOR') then
-    dmRegra.ExportarContasWEB();
+  begin
+    ExportarCargasWEB();
+    ExportarContasWEB();
+//    dmRegra.ExportarContasWEB();
+  end;
 end;
 
 procedure TfMenuPrin.Tab_CodigoClick(Sender: TObject);
@@ -310,6 +316,42 @@ begin
     frmExecutarComando := TfrmExecutarComando.Create(Self);
     frmExecutarComando.ShowModal;
     frmExecutarComando.free;
+end;
+
+procedure TfMenuPrin.ExportarCargasWEB;
+var
+  servico: TServicoCarga;
+begin
+  servico := TServicoCarga.Create;
+  try
+    try
+      servico.ExportarNET();
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
+end;
+
+procedure TfMenuPrin.ExportarContasWEB;
+var
+  servico: TServicoConta;
+begin
+  servico := TServicoConta.Create;
+  try
+    try
+      servico.ExportarNET();
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
 end;
 
 procedure TfMenuPrin.ExportarWEBClick(Sender: TObject);

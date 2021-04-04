@@ -245,6 +245,14 @@ object fExportarWEB: TfExportarWEB
       TabOrder = 2
     end
   end
+  object chkIncluir: TCheckBox
+    Left = 328
+    Top = 147
+    Width = 73
+    Height = 17
+    Caption = 'Incluir'
+    TabOrder = 4
+  end
   object QryCargas: TSQLQuery
     MaxBlobSize = -1
     Params = <

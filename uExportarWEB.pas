@@ -25,6 +25,7 @@ type
     lblAguarde: TLabel;
     QryContas: TSQLQuery;
     rbBanco: TRadioButton;
+    chkIncluir: TCheckBox;
     procedure btnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure btnExportarClick(Sender: TObject);
@@ -34,6 +35,9 @@ type
     procedure ExportarCargas;
     procedure ExportarContas;
     procedure ExportarBancos;
+
+    procedure IncluirCargas;
+    procedure IncluirContas;
   public
     { Public declarations }
   end;
@@ -56,10 +60,20 @@ begin
     lblAguarde.Refresh;
 
     if rbCarga.Checked then
-      ExportarCargas();
+    begin
+      if chkIncluir.Checked then
+        IncluirCargas()
+      else
+        ExportarCargas();
+    end;
 
     if rbContas.Checked then
-      ExportarContas();
+    begin
+      if chkIncluir.Checked then
+        IncluirContas()
+      else
+        ExportarContas();
+    end;
 
     if rbBanco.Checked then
       ExportarBancos();
@@ -152,6 +166,42 @@ begin
       key:=#0;
       perform(Wm_NextDlgCtl,0,0);
    end;
+end;
+
+procedure TfExportarWEB.IncluirCargas;
+var
+  servico: TServicoCarga;
+begin
+  servico := TServicoCarga.Create;
+  try
+    try
+      servico.ObterPorDataEmissao(StrToDate(edtDataInicial.Text), StrToDate(edtDataFinal.Text));
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
+end;
+
+procedure TfExportarWEB.IncluirContas;
+var
+  servico: TServicoConta;
+begin
+  servico := TServicoConta.Create;
+  try
+    try
+      servico.ObterPorDataEmissao(StrToDate(edtDataInicial.Text), StrToDate(edtDataFinal.Text));
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
 end;
 
 end.

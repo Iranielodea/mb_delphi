@@ -13,12 +13,12 @@ type
   private
     FUrlBase: string;
     procedure Gravar(ATipo: Integer; AModel: TObjectList<TCargaModel>);
-  public
+    procedure IncluirSomente(AModel: TObjectList<TCargaModel>);
     procedure Incluir(AModel: TObjectList<TCargaModel>);
     procedure Alterar(AModel: TObjectList<TCargaModel>);
+  public
     procedure ExportarNET();
-
-    function ObterPorDataEmissao(ADataInicial, ADataFinal: TDateTime): TObjectList<TCargaModel>;
+    procedure ObterPorDataEmissao(ADataInicial, ADataFinal: TDateTime);
     constructor Create(); overload;
   end;
 
@@ -55,6 +55,7 @@ var
   sResultado: string;
   Model: TCargaModel;
 begin
+  //ATipo = 0-Post 1-Put 2-Incluir
   urlBase := FUrlBase; // 'http://localhost/mb/api_v2';
   arrayItem := TJSONArray.Create;
 
@@ -163,7 +164,14 @@ begin
     Request.Response := Response;
 
     Client.BaseURL := urlBase;
-    Request.Resource := '/carga';
+
+    if ATipo = 2 then
+    begin
+      Request.Resource := '/carga/incluir';
+      ATipo := 0;
+    end
+    else
+      Request.Resource := '/carga';
 
     if ATipo = 0 then
       Request.Method := TRESTRequestMethod.rmPOST
@@ -199,12 +207,26 @@ begin
   Gravar(0, AModel);
 end;
 
-function TServicoCarga.ObterPorDataEmissao(ADataInicial,
-  ADataFinal: TDateTime): TObjectList<TCargaModel>;
+procedure TServicoCarga.IncluirSomente(AModel: TObjectList<TCargaModel>);
+begin
+  Gravar(2, AModel);
+end;
+
+procedure TServicoCarga.ObterPorDataEmissao(ADataInicial,
+  ADataFinal: TDateTime);
 var
   repositorio: TRepositorioCarga;
+  lista: TObjectList<TCargaModel>;
 begin
-  Result := repositorio.ObterPorDataEmissao(ADataInicial, ADataFinal);
+  repositorio := TRepositorioCarga.Create;
+  try
+    lista := repositorio.ObterPorDataEmissao(ADataInicial, ADataFinal);
+    if lista.Count > 0 then
+      Self.IncluirSomente(lista);
+  finally
+    FreeAndNil(lista);
+    FreeAndNil(repositorio);
+  end;
 end;
 
 procedure TServicoCarga.ExportarNET;
@@ -216,9 +238,10 @@ begin
   try
     lista := repositorio.ObterPorExportarNET();
     if lista.Count > 0 then
+    begin
       Self.Incluir(lista);
-
-    dm.BancoDados.ExecuteDirect('UPDATE CARGA set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      dm.BancoDados.ExecuteDirect('UPDATE CARGA set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+    end;
   finally
     FreeAndNil(repositorio);
     FreeAndNil(lista);
