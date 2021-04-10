@@ -1,4 +1,4 @@
-------- versao 00023 - 27/11/2019 - Atual
+------- versao 00025 - 21/02/2021
 --------------------------------------------------------------------------------
 -- versao 00001
 ALTER TABLE EMPRESA ADD VERSAO VARCHAR(10);
@@ -577,6 +577,8 @@ ALTER TABLE CONTABANCO ADD EXPORTAR_NET CHAR(1)
 --==
 ALTER TABLE CARGA ADD EXPORTAR_NET CHAR(1)
 --==
+ALTER TABLE FORNECEDOR ADD EXPORTAR_NET CHAR(1)
+--==
 CREATE trigger trg_contas_bi0 for contas
 active before insert position 0
 AS
@@ -592,6 +594,13 @@ begin
 end
 --==
 CREATE trigger trg_carga_bi0 for carga
+active before insert position 0
+AS
+begin
+    NEW.exportar_net = 'S';
+end
+--==
+CREATE trigger trg_fornecedor_bi0 for fornecedor
 active before insert position 0
 AS
 begin

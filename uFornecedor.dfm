@@ -562,10 +562,6 @@ inherited fFornecedor: TfFornecedor
             object TabSheet3: TTabSheet
               Caption = 'Complemento'
               ImageIndex = 1
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object GroupBox3: TGroupBox
                 Left = 0
                 Top = 2
@@ -688,10 +684,6 @@ inherited fFornecedor: TfFornecedor
             object TabSheet2: TTabSheet
               Caption = 'Dados Banc'#225'rios'
               ImageIndex = 2
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object GroupBox4: TGroupBox
                 Left = 0
                 Top = 0
@@ -853,13 +845,13 @@ inherited fFornecedor: TfFornecedor
       inherited TabSheet1: TTabSheet
         ExplicitLeft = 4
         ExplicitTop = 27
-        ExplicitWidth = 882
-        ExplicitHeight = 345
+        ExplicitWidth = 877
+        ExplicitHeight = 247
         inherited Panel4: TPanel
           Width = 877
           Height = 247
-          ExplicitWidth = 882
-          ExplicitHeight = 345
+          ExplicitWidth = 877
+          ExplicitHeight = 247
           inherited DBEdit2: TDBEdit
             DataField = 'USU_INC'
           end

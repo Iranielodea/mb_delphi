@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Mask, uDM, Data.FMTBcd, Data.DB, Data.SqlExpr, UUtil, uServicoCarga,
   uServicoConta, System.Generics.Collections, uCargaModel, uContaModel,
-  uServicoContaBanco, uContaBancoModel;
+  uServicoContaBanco, uContaBancoModel, uServicoFornecedor;
 
 type
   TfExportarWEB = class(TForm)
@@ -26,6 +26,7 @@ type
     QryContas: TSQLQuery;
     rbBanco: TRadioButton;
     chkIncluir: TCheckBox;
+    rbFornecedor: TRadioButton;
     procedure btnSairClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure btnExportarClick(Sender: TObject);
@@ -35,9 +36,11 @@ type
     procedure ExportarCargas;
     procedure ExportarContas;
     procedure ExportarBancos;
+    procedure ExportarFornecedor;
 
     procedure IncluirCargas;
     procedure IncluirContas;
+    procedure IncluirFornecedor;
   public
     { Public declarations }
   end;
@@ -77,6 +80,14 @@ begin
 
     if rbBanco.Checked then
       ExportarBancos();
+
+    if rbFornecedor.Checked then
+    begin
+      if chkIncluir.Checked then
+         IncluirFornecedor()
+      else
+          ExportarFornecedor();
+    end;
 
     lblAguarde.Visible := False;
     lblAguarde.Refresh;
@@ -153,6 +164,24 @@ begin
   end;
 end;
 
+procedure TfExportarWEB.ExportarFornecedor;
+var
+  servico: TServicoFornecedor;
+begin
+  servico := TServicoFornecedor.Create;
+  try
+    try
+      servico.ExportarNET();
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
+end;
+
 procedure TfExportarWEB.FormCreate(Sender: TObject);
 begin
   edtDataInicial.Text := DateToStr(date);
@@ -204,4 +233,22 @@ begin
   end;
 end;
 
+procedure TfExportarWEB.IncluirFornecedor;
+var
+  servico: TServicoFornecedor;
+begin
+  servico := TServicoFornecedor.Create;
+  try
+    try
+      servico.IncluirFornecedores();
+    except ON E: Exception do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(servico);
+  end;
+
+end;
 end.

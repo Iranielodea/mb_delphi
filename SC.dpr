@@ -112,7 +112,10 @@ uses
   uCargaModel in 'Entidades\uCargaModel.pas',
   uRepositorioCarga in 'Repositorios\uRepositorioCarga.pas',
   uServicoCarga in 'Servicos\uServicoCarga.pas',
-  uExportarWEB in 'uExportarWEB.pas' {fExportarWEB};
+  uExportarWEB in 'uExportarWEB.pas' {fExportarWEB},
+  uFornecedorModel in 'Entidades\uFornecedorModel.pas',
+  uRepositorioFornecedor in 'Repositorios\uRepositorioFornecedor.pas',
+  uServicoFornecedor in 'Servicos\uServicoFornecedor.pas';
 
 {$R *.res}
 

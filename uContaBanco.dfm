@@ -1,6 +1,6 @@
 inherited fContaBanco: TfContaBanco
   Caption = 'Contas Banc'#225'rias'
-  ExplicitTop = -103
+  ExplicitTop = -70
   ExplicitWidth = 748
   ExplicitHeight = 515
   PixelsPerInch = 96
@@ -40,15 +40,15 @@ inherited fContaBanco: TfContaBanco
     ExplicitHeight = 378
     inherited PageControl1: TPageControl
       Height = 306
-      ExplicitHeight = 297
+      ExplicitHeight = 306
       inherited sheetCad: TTabSheet
         ExplicitLeft = 4
         ExplicitTop = 27
         ExplicitWidth = 730
-        ExplicitHeight = 266
+        ExplicitHeight = 275
         inherited Panel3: TPanel
           Height = 275
-          ExplicitHeight = 266
+          ExplicitHeight = 275
           inherited Label3: TLabel
             Width = 105
             Caption = 'N'#250'mero da Conta'
@@ -135,16 +135,16 @@ inherited fContaBanco: TfContaBanco
         ExplicitLeft = 4
         ExplicitTop = 27
         ExplicitWidth = 730
-        ExplicitHeight = 266
+        ExplicitHeight = 275
         inherited Panel4: TPanel
           Height = 275
-          ExplicitHeight = 266
+          ExplicitHeight = 275
         end
       end
     end
     inherited Panel2: TPanel
       Top = 334
-      ExplicitTop = 325
+      ExplicitTop = 334
       inherited DBNavigator1: TDBNavigator
         Hints.Strings = ()
       end

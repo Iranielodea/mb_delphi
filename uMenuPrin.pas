@@ -76,7 +76,7 @@ type
     ExecutarComandos: TMenuItem;
     extosdeUnidades1: TMenuItem;
     este1: TMenuItem;
-    ExportarWEB: TMenuItem;
+    mnuExportarWEB: TMenuItem;
     procedure EstadosClick(Sender: TObject);
     procedure CidadesClick(Sender: TObject);
     procedure Forma_PagtoClick(Sender: TObject);
@@ -125,7 +125,7 @@ type
     procedure ExecutarComandosClick(Sender: TObject);
     procedure extosdeUnidades1Click(Sender: TObject);
     procedure este1Click(Sender: TObject);
-    procedure ExportarWEBClick(Sender: TObject);
+    procedure mnuExportarWEBClick(Sender: TObject);
   private
     { Private declarations }
     procedure ExportarCargasWEB;
@@ -301,6 +301,7 @@ begin
     ExportarCargasWEB();
     ExportarContasWEB();
 //    dmRegra.ExportarContasWEB();
+    mnuExportarWEB.Visible := False;
   end;
 end;
 
@@ -354,7 +355,7 @@ begin
   end;
 end;
 
-procedure TfMenuPrin.ExportarWEBClick(Sender: TObject);
+procedure TfMenuPrin.mnuExportarWEBClick(Sender: TObject);
 begin
   fExportarWEB := TfExportarWEB.Create(Self);
   fExportarWEB.ShowModal;

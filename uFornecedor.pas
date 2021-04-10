@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uBase, DB, DBCtrls, Mask, ComCtrls, Grids, DBGrids, ExtCtrls,
-  StdCtrls, Buttons, DBClient;
+  StdCtrls, Buttons, DBClient, uServicoFornecedor, uFornecedorModel, System.Generics.Collections;
 
 type
   TfFornecedor = class(TfBase)
@@ -93,7 +93,7 @@ type
     procedure BuscarCPF;
     procedure BuscarCNPJ;
     procedure MostraSheet;
-
+    procedure ExportarWEB;
   public
     { Public declarations }
   end;
@@ -350,11 +350,16 @@ begin
 end;
 
 procedure TfFornecedor.butOkClick(Sender: TObject);
+var
+  incluindo: Boolean;
 begin
+  incluindo := (dsCad.DataSet.State = dsInsert);
    if Procura_Documento('J') = false then
       exit;
   inherited;
 
+  if incluindo then
+    ExportarWEB();
 end;
 
 procedure TfFornecedor.butPesqClick(Sender: TObject);
@@ -433,6 +438,18 @@ procedure TfFornecedor.dsCadStateChange(Sender: TObject);
 begin
   inherited;
    butContato.Enabled:=dsCad.DataSet.State = dsBrowse;
+end;
+
+procedure TfFornecedor.ExportarWEB;
+var
+  servico: TServicoFornecedor;
+begin
+  servico := TServicoFornecedor.Create;
+  try
+    servico.ExportarNET();
+  finally
+    FreeAndNil(servico);
+  end;
 end;
 
 procedure TfFornecedor.butExcluirClick(Sender: TObject);

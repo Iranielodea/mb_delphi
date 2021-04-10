@@ -3,7 +3,7 @@ object fExportarWEB: TfExportarWEB
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Exportar para WEB'
-  ClientHeight = 211
+  ClientHeight = 246
   ClientWidth = 457
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -33,8 +33,8 @@ object fExportarWEB: TfExportarWEB
     Caption = 'Data Final'
   end
   object lblAguarde: TLabel
-    Left = 128
-    Top = 104
+    Left = 56
+    Top = 88
     Width = 89
     Height = 19
     Caption = 'Aguarde ...'
@@ -68,14 +68,15 @@ object fExportarWEB: TfExportarWEB
   end
   object pnl1: TPanel
     Left = 0
-    Top = 170
+    Top = 205
     Width = 457
     Height = 41
     Align = alBottom
     BevelOuter = bvLowered
     TabOrder = 3
+    ExplicitTop = 170
     object btnExportar: TBitBtn
-      Left = 112
+      Left = 110
       Top = 8
       Width = 100
       Height = 25
@@ -213,7 +214,7 @@ object fExportarWEB: TfExportarWEB
     Left = 320
     Top = 29
     Width = 121
-    Height = 94
+    Height = 116
     Caption = 'Tipo:'
     Ctl3D = False
     ParentCtl3D = False
@@ -244,10 +245,18 @@ object fExportarWEB: TfExportarWEB
       Caption = 'Contas Banc'#225'rias'
       TabOrder = 2
     end
+    object rbFornecedor: TRadioButton
+      Left = 8
+      Top = 94
+      Width = 110
+      Height = 17
+      Caption = 'Fornecedor'
+      TabOrder = 3
+    end
   end
   object chkIncluir: TCheckBox
-    Left = 328
-    Top = 147
+    Left = 320
+    Top = 163
     Width = 73
     Height = 17
     Caption = 'Incluir'
@@ -270,8 +279,8 @@ object fExportarWEB: TfExportarWEB
       'update CARGA set EXPORTAR_NET = '#39'S'#39
       'where DATA between :DATAINI and :DATAFIN')
     SQLConnection = DM.BancoDados
-    Left = 184
-    Top = 128
+    Left = 112
+    Top = 112
   end
   object QryContas: TSQLQuery
     MaxBlobSize = -1
@@ -290,7 +299,7 @@ object fExportarWEB: TfExportarWEB
       'update CONTAS set EXPORTAR_NET = '#39'S'#39
       'where DATA_EMISSAO between :DATAINI and :DATAFIN')
     SQLConnection = DM.BancoDados
-    Left = 136
-    Top = 128
+    Left = 64
+    Top = 112
   end
 end
