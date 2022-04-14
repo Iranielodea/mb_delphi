@@ -49,15 +49,25 @@ procedure TServicoFornecedor.ExportarNET;
 var
   repositorio: TRepositorioFornecedor;
   lista: TObjectList<TFornecedorModel>;
+  arq: TextFile;
 begin
   repositorio := TRepositorioFornecedor.Create;
   try
-    lista := repositorio.ObterPorExportarNET();
+    try
+      lista := repositorio.ObterPorExportarNET();
 
-    if lista.Count > 0 then
-    begin
-      Self.Incluir(lista);
-      dm.BancoDados.ExecuteDirect('UPDATE FORNECEDOR set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      if lista.Count > 0 then
+      begin
+        Self.Incluir(lista);
+        dm.BancoDados.ExecuteDirect('UPDATE FORNECEDOR set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      end;
+    except on E: Exception do
+      begin
+        AssignFile(arq, 'web_forneceodr.txt');
+        Rewrite(arq);
+        Writeln(arq, E.Message);
+        CloseFile(arq);
+      end;
     end;
   finally
     FreeAndNil(repositorio);

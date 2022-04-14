@@ -35,6 +35,8 @@ type
     IntegerField2: TIntegerField;
     QCargaWEB: TSQLQuery;
     IntegerField3: TIntegerField;
+    QFornecedorWEB: TSQLQuery;
+    IntegerField4: TIntegerField;
   private
     FCodigo: Integer;
     FNome: string;
@@ -68,9 +70,10 @@ type
     procedure ExportarTransportadorWEB;
     procedure ExportarPedidoWEB;
     procedure ExportarPedidoItensWEB;
-    procedure ExportarContasWEB;
+    procedure ExportarContasWEB(ADataInicial, ADataFinal: string; AId: Integer);
     procedure ExportarContaBancoWEB;
-    procedure ExportarCargaWEB;
+    procedure ExportarCargaWEB(ADataInicial, ADataFinal: string; AId: Integer);
+    procedure ExportarFornecedorWEB;
 
     function ContasCarga(inCarga, Tipo: String): boolean;
     procedure Altera_Visto(Cod_Cliente, Cod_Contato: String);
@@ -249,17 +252,36 @@ begin
    Executa('delete from PEDIDO where NUM_PEDIDO = '+inCodigo);
 end;
 
-procedure TdmRegra.ExportarCargaWEB;
+procedure TdmRegra.ExportarCargaWEB(ADataInicial, ADataFinal: string; AId: Integer);
 var
   arquivo: AnsiString;
 begin
+//=================================
+// informar a periodo
+//  data 01.01.2021 30.01.2021
+// Id > 0 entao será usado /incluir
+// Id = 0 então será feito insert ou update
+// se id = 0 e data "" então pegará os dados com EXPORTAR_NET = 'S'
+//
+//  arquivo := 'MB.UI.exe CARGA EXPORTAR 0 "" ""';
+//=================================
+
   if FileExists('MB.UI.exe') = False then
     Exit;
 
   QCargaWEB.Close;
   QCargaWEB.Open;
 
-  arquivo := 'MB.UI.exe CARGA EXPORTAR 0 "" ""';
+  arquivo := 'MB.UI.exe CARGA EXPORTAR ';
+  arquivo := arquivo + AId.ToString() + ' ';
+
+  if UUtil.DataEmBranco(ADataInicial) then
+    arquivo := arquivo + '"" ""'
+  else begin
+    arquivo := arquivo + FormatDateTime('dd.mm.yyyy', StrToDate(ADataInicial));
+    arquivo := arquivo + ' ';
+    arquivo := arquivo + FormatDateTime('dd.mm.yyyy', StrToDate(ADataFinal));
+  end;
 
   if QCargaWEB.Fields[0].AsInteger > 0 then
     WinExec(PAnsiChar(arquivo), SW_HIDE);
@@ -303,22 +325,57 @@ begin
   QContaBancoWEB.Close;
 end;
 
-procedure TdmRegra.ExportarContasWEB;
+procedure TdmRegra.ExportarContasWEB(ADataInicial, ADataFinal: string; AId: Integer);
 var
   arquivo: AnsiString;
 begin
+//=================================
+// informar a periodo
+//  data 01.01.2021 30.01.2021
+// Id > 0 entao será usado /incluir
+// Id = 0 então será feito insert ou update
+// se id = 0 e data "" então pegará os dados com EXPORTAR_NET = 'S'
+//  arquivo := 'MB.UI.exe CONTAS EXPORTAR 0 "" ""';
+//=================================
   if FileExists('MB.UI.exe') = False then
     Exit;
 
   QContasWEB.Close;
   QContasWEB.Open;
 
-  arquivo := 'MB.UI.exe CONTAS EXPORTAR 0 "" ""';
+  arquivo := 'MB.UI.exe CONTAS EXPORTAR ';
+  arquivo := arquivo + AId.ToString() + ' ';
 
-  if QPedidoWEB.Fields[0].AsInteger > 0 then
+  if UUtil.DataEmBranco(ADataInicial) then
+    arquivo := arquivo + '"" ""'
+  else begin
+    arquivo := arquivo + FormatDateTime('dd.mm.yyyy', StrToDate(ADataInicial));
+    arquivo := arquivo + ' ';
+    arquivo := arquivo + FormatDateTime('dd.mm.yyyy', StrToDate(ADataFinal));
+  end;
+
+  if QContasWEB.Fields[0].AsInteger > 0 then
     WinExec(PAnsiChar(arquivo), SW_HIDE);
 
   QContasWEB.Close;
+end;
+
+procedure TdmRegra.ExportarFornecedorWEB;
+var
+  arquivo: AnsiString;
+begin
+  if FileExists('MB.UI.exe') = False then
+    Exit;
+
+  QFornecedorWEB.Close;
+  QFornecedorWEB.Open;
+
+  arquivo := 'MB.UI.exe FORNECEDOR EXPORTAR 0 "" ""';
+
+  if QFornecedorWEB.Fields[0].AsInteger > 0 then
+    WinExec(PAnsiChar(arquivo), SW_HIDE);
+
+  QFornecedorWEB.Close;
 end;
 
 procedure TdmRegra.ExportarPedidoItensWEB;

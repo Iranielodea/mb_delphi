@@ -107,11 +107,11 @@
     <Transaction>2021/04/02 14:56:38.000.115,=C:\Projetos\MB\Unit1.pas</Transaction>
     <Transaction>2021/04/02 14:57:07.000.215,C:\Projetos\MB\uExportarWEB.pas=C:\Projetos\MB\Unit1.pas</Transaction>
     <Transaction>2021/04/02 14:57:07.000.215,C:\Projetos\MB\uExportarWEB.dfm=C:\Projetos\MB\Unit1.dfm</Transaction>
-    <Transaction>2021/04/10 08:48:25.427,=C:\Projetos\MB\Unit1.pas</Transaction>
-    <Transaction>2021/04/10 08:48:53.882,C:\Projetos\MB\Entidades\uFornecedorModel.pas=C:\Projetos\MB\Unit1.pas</Transaction>
-    <Transaction>2021/04/10 09:01:26.992,=C:\Projetos\MB\Unit1.pas</Transaction>
-    <Transaction>2021/04/10 09:01:59.067,C:\Projetos\MB\Repositorios\uRepositorioFornecedor.pas=C:\Projetos\MB\Unit1.pas</Transaction>
-    <Transaction>2021/04/10 09:43:36.889,=C:\Projetos\MB\Unit1.pas</Transaction>
-    <Transaction>2021/04/10 09:43:52.785,C:\Projetos\MB\Servicos\uServicoFornecedor.pas=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 08:48:25.000.427,=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 08:48:53.000.882,C:\Projetos\MB\Entidades\uFornecedorModel.pas=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 09:01:26.000.992,=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 09:01:59.000.067,C:\Projetos\MB\Repositorios\uRepositorioFornecedor.pas=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 09:43:36.000.889,=C:\Projetos\MB\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 09:43:52.000.785,C:\Projetos\MB\Servicos\uServicoFornecedor.pas=C:\Projetos\MB\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

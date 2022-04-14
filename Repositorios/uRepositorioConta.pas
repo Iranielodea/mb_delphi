@@ -29,6 +29,7 @@ begin
   try
     qry.SQL.Text := RetornarCampos();
     qry.SQL.Add(' where CON.data_emissao BETWEEN :dataini and :datafin');
+//    qry.SQL.Add(' and CON.exportar_net = ''S''');
 
     qry.ParamByName('DATAINI').AsDateTime := ADataInicial;
     qry.ParamByName('DATAFIN').AsDateTime := ADataFinal;

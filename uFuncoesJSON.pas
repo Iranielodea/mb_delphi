@@ -29,9 +29,15 @@ var
 begin
     Msg := TMsgJson.Create;
     try
-      Msg := TJson.JsonToObject<TMsgJson>(AJson);
-      if Msg.Mensagem <> 'OK' then
-        raise Exception.Create('Erro: ' + Msg.Mensagem);
+      try
+        Msg := TJson.JsonToObject<TMsgJson>(AJson);
+        if Msg.Mensagem <> 'OK' then
+          raise Exception.Create('Erro: ' + Msg.Mensagem);
+      except on E: Exception do
+        begin
+          raise Exception.Create(E.Message);
+        end;
+      end;
     finally
       FreeAndNil(Msg);
     end;

@@ -85,6 +85,7 @@ type
     procedure Desc_TipoExit(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure butPesqClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     function Procura_Documento(Tipo: String): boolean;
@@ -357,9 +358,6 @@ begin
    if Procura_Documento('J') = false then
       exit;
   inherited;
-
-  if incluindo then
-    ExportarWEB();
 end;
 
 procedure TfFornecedor.butPesqClick(Sender: TObject);
@@ -393,6 +391,12 @@ begin
    dm.Tamanho_Form(fFornecedor);
   inherited;
 //  EditNome.Clear;
+end;
+
+procedure TfFornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  ExportarWEB();
 end;
 
 procedure TfFornecedor.BuscarCNPJ;
@@ -441,15 +445,9 @@ begin
 end;
 
 procedure TfFornecedor.ExportarWEB;
-var
-  servico: TServicoFornecedor;
 begin
-  servico := TServicoFornecedor.Create;
-  try
-    servico.ExportarNET();
-  finally
-    FreeAndNil(servico);
-  end;
+  if vgUsuario <> 'SUPERVISOR' then
+    dmRegra.ExportarFornecedorWEB();
 end;
 
 procedure TfFornecedor.butExcluirClick(Sender: TObject);

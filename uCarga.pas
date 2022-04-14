@@ -8,7 +8,8 @@ uses
   FMTBcd, SqlExpr, MaskUtils, ppProd, ppClass, ppReport, ppComm, ppRelatv,
   ppDB, ppTxPipe, ppBands, ppCtrls, ppPrnabl, ppCache, ppStrtch, ppMemo, ppViewr,
   ppModule, raCodMod, ppVar, ppEndUsr, ppParameter, ppDesignLayer, uClassContaBanco,
-  uDMCargaVencto, Vcl.Grids, Vcl.DBGrids, uFinanceiro, udmPessoaCredito;
+  uDMCargaVencto, Vcl.Grids, Vcl.DBGrids, uFinanceiro, udmPessoaCredito,
+  uServicoCarga;
 
 type
   TfCarga = class(TForm)
@@ -413,7 +414,7 @@ begin
    dm.Cad_Obs.Close;
 
   if vgUsuario <> 'SUPERVISOR' then
-    dmRegra.ExportarCargaWEB();
+    dmRegra.ExportarCargaWEB('', '', 0);
 end;
 
 procedure TfCarga.FormDestroy(Sender: TObject);
@@ -867,19 +868,27 @@ begin
       vlOper:='A';
 
    dm.IniTrans;
-   dm.Carga.Post;
+   try
+     dm.Carga.Post;
 
-   if vlOper = 'A' then
-      dmRegra.ContasCarga(id_Carga.Text,'C');
+     if vlOper = 'A' then
+        dmRegra.ContasCarga(id_Carga.Text,'C');
 
-   dm.SalvaTab(dm.Carga);
-   if dm.CargaSITUACAO.Text = 'C' then
-      ExecutaSql('delete from CONTAS where COD_EMPRESA = '+vgCod_Empresa+' and NUM_PEDIDO = '+id_Carga.text+' and TIPO_CONTA = 2');
+     dm.SalvaTab(dm.Carga);
+     if dm.CargaSITUACAO.Text = 'C' then
+        ExecutaSql('delete from CONTAS where COD_EMPRESA = '+vgCod_Empresa+' and NUM_PEDIDO = '+id_Carga.text+' and TIPO_CONTA = 2');
 
-    Dados_Obs('I');
-    SalvarParcelas();
+      Dados_Obs('I');
+      SalvarParcelas();
 
-   dm.SalvaTrans;
+     dm.SalvaTrans;
+   except On E: Exception do
+      begin
+        dm.CancelaTrans;
+        ShowMessage(e.Message);
+        Exit;
+      end;
+   end;
    Saldo;
    if vlOper = 'I' then
    begin

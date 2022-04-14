@@ -1,9 +1,9 @@
 object fRContas: TfRContas
   Left = 287
   Top = 326
-  Width = 475
-  Height = 254
   Caption = 'fRContas'
+  ClientHeight = 215
+  ClientWidth = 459
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,7 +14,7 @@ object fRContas: TfRContas
   PixelsPerInch = 96
   TextHeight = 13
   object QReceber: TSQLQuery
-    SQLConnection = DM.BancoDados
+    MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
@@ -45,12 +45,12 @@ object fRContas: TfRContas
       '   where CON.COD_EMPRESA = :COD_EMPRESA'
       '   and CON.TIPO_CONTA = '#39'2'#39
       '')
+    SQLConnection = DM.BancoDados
     Left = 32
     Top = 16
   end
   object dspReceber: TDataSetProvider
     DataSet = QReceber
-    Constraints = True
     Left = 104
     Top = 16
   end
@@ -117,11 +117,13 @@ object fRContas: TfRContas
   end
   object Receber1: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -129,19 +131,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 32
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand1: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel1: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
@@ -159,6 +196,7 @@ object fRContas: TfRContas
       end
       object lblData: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -176,6 +214,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable1: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -190,6 +229,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable2: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -205,6 +245,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable3: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -220,6 +261,7 @@ object fRContas: TfRContas
       end
       object ppLabel2: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -235,6 +277,7 @@ object fRContas: TfRContas
       end
       object ppLabel3: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -250,6 +293,7 @@ object fRContas: TfRContas
       end
       object ppLabel4: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -265,6 +309,7 @@ object fRContas: TfRContas
       end
       object ppLabel5: TppLabel
         UserName = 'Label5'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -280,6 +325,7 @@ object fRContas: TfRContas
       end
       object ppLabel6: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -295,6 +341,7 @@ object fRContas: TfRContas
       end
       object ppLabel7: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -310,6 +357,7 @@ object fRContas: TfRContas
       end
       object ppLabel9: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -325,6 +373,7 @@ object fRContas: TfRContas
       end
       object ppLabel10: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -341,7 +390,7 @@ object fRContas: TfRContas
       object ppLine1: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -350,6 +399,7 @@ object fRContas: TfRContas
       end
       object ppLabel18: TppLabel
         UserName = 'Label17'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -365,12 +415,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand1: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText1: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -386,7 +440,9 @@ object fRContas: TfRContas
       end
       object ppDBText2: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -402,7 +458,9 @@ object fRContas: TfRContas
       end
       object ppDBText3: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -418,7 +476,9 @@ object fRContas: TfRContas
       end
       object ppDBText4: TppDBText
         UserName = 'DBText4'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -434,7 +494,9 @@ object fRContas: TfRContas
       end
       object ppDBText5: TppDBText
         UserName = 'DBText5'
+        HyperlinkEnabled = False
         DataField = 'NOME'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -450,7 +512,9 @@ object fRContas: TfRContas
       end
       object ppDBText6: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -468,7 +532,9 @@ object fRContas: TfRContas
       end
       object ppDBText7: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -484,7 +550,9 @@ object fRContas: TfRContas
       end
       object ppDBText8: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -502,7 +570,9 @@ object fRContas: TfRContas
       end
       object ppDBText9: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -520,7 +590,9 @@ object fRContas: TfRContas
       end
       object ppDBText21: TppDBText
         UserName = 'DBText11'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -536,12 +608,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand1: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc5: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -559,7 +634,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc6: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -577,7 +654,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc7: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -595,6 +674,7 @@ object fRContas: TfRContas
       end
       object ppLabel12: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -611,6 +691,7 @@ object fRContas: TfRContas
       end
       object ppLabel13: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -627,6 +708,7 @@ object fRContas: TfRContas
       end
       object ppLabel14: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -643,6 +725,7 @@ object fRContas: TfRContas
       end
       object ppLabel15: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -659,7 +742,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc8: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -677,6 +762,7 @@ object fRContas: TfRContas
       end
       object ppLabel16: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -694,7 +780,7 @@ object fRContas: TfRContas
       object ppLine3: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 124884
         mmTop = 2381
@@ -705,16 +791,23 @@ object fRContas: TfRContas
     object ppGroup1: TppGroup
       BreakName = 'DATA_EMISSAO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand1: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 6350
         mmPrintPosition = 0
         object ppLabel8: TppLabel
           UserName = 'Label8'
+          HyperlinkEnabled = False
           Caption = 'Dt.Emiss'#227'o'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -731,7 +824,9 @@ object fRContas: TfRContas
         end
         object ppDBText10: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'DATA_EMISSAO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -748,12 +843,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand1: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc1: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -773,7 +872,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc2: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -793,7 +894,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc3: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -813,6 +916,7 @@ object fRContas: TfRContas
         end
         object ppLabel11: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -830,7 +934,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc4: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -852,7 +958,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -862,14 +968,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers1: TppDesignLayers
+      object ppDesignLayer1: TppDesignLayer
+        UserName = 'Foreground'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList1: TppParameterList
+    end
   end
   object Receber2: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -877,19 +994,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 104
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand2: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel17: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Vencimento'
         Font.Charset = DEFAULT_CHARSET
@@ -907,6 +1059,7 @@ object fRContas: TfRContas
       end
       object lblData2: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -924,6 +1077,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable4: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -938,6 +1092,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable5: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -953,6 +1108,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable6: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -968,6 +1124,7 @@ object fRContas: TfRContas
       end
       object ppLabel19: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -983,6 +1140,7 @@ object fRContas: TfRContas
       end
       object ppLabel20: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -998,6 +1156,7 @@ object fRContas: TfRContas
       end
       object ppLabel21: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1013,6 +1172,7 @@ object fRContas: TfRContas
       end
       object ppLabel22: TppLabel
         UserName = 'Label5'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1028,6 +1188,7 @@ object fRContas: TfRContas
       end
       object ppLabel23: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1043,6 +1204,7 @@ object fRContas: TfRContas
       end
       object ppLabel24: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1058,6 +1220,7 @@ object fRContas: TfRContas
       end
       object ppLabel25: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1073,6 +1236,7 @@ object fRContas: TfRContas
       end
       object ppLabel26: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1089,7 +1253,7 @@ object fRContas: TfRContas
       object ppLine4: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -1098,6 +1262,7 @@ object fRContas: TfRContas
       end
       object ppLabel34: TppLabel
         UserName = 'Label34'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1113,12 +1278,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand2: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText11: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1134,7 +1303,9 @@ object fRContas: TfRContas
       end
       object ppDBText12: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1150,7 +1321,9 @@ object fRContas: TfRContas
       end
       object ppDBText13: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1166,7 +1339,9 @@ object fRContas: TfRContas
       end
       object ppDBText14: TppDBText
         UserName = 'DBText4'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1182,7 +1357,9 @@ object fRContas: TfRContas
       end
       object ppDBText15: TppDBText
         UserName = 'DBText5'
+        HyperlinkEnabled = False
         DataField = 'NOME'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1198,7 +1375,9 @@ object fRContas: TfRContas
       end
       object ppDBText16: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1216,7 +1395,9 @@ object fRContas: TfRContas
       end
       object ppDBText17: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1232,7 +1413,9 @@ object fRContas: TfRContas
       end
       object ppDBText18: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1250,7 +1433,9 @@ object fRContas: TfRContas
       end
       object ppDBText19: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1268,7 +1453,9 @@ object fRContas: TfRContas
       end
       object ppDBText22: TppDBText
         UserName = 'DBText22'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1284,12 +1471,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand2: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc9: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1307,7 +1497,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc10: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1325,7 +1517,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc11: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1343,6 +1537,7 @@ object fRContas: TfRContas
       end
       object ppLabel27: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1359,6 +1554,7 @@ object fRContas: TfRContas
       end
       object ppLabel28: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1375,6 +1571,7 @@ object fRContas: TfRContas
       end
       object ppLabel29: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1391,6 +1588,7 @@ object fRContas: TfRContas
       end
       object ppLabel30: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1407,7 +1605,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc12: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1425,6 +1625,7 @@ object fRContas: TfRContas
       end
       object ppLabel31: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1442,7 +1643,7 @@ object fRContas: TfRContas
       object ppLine5: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 124884
         mmTop = 2381
@@ -1453,16 +1654,23 @@ object fRContas: TfRContas
     object ppGroup2: TppGroup
       BreakName = 'DATA_VENCTO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand2: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 6350
         mmPrintPosition = 0
         object ppLabel32: TppLabel
           UserName = 'Label8'
+          HyperlinkEnabled = False
           Caption = 'Dt.Vencto'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1479,7 +1687,9 @@ object fRContas: TfRContas
         end
         object ppDBText20: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'DATA_VENCTO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -1496,12 +1706,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand2: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc13: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1521,7 +1735,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc14: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1541,7 +1757,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc15: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1561,6 +1779,7 @@ object fRContas: TfRContas
         end
         object ppLabel33: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1578,7 +1797,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc16: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -1600,7 +1821,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -1610,14 +1831,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers2: TppDesignLayers
+      object ppDesignLayer2: TppDesignLayer
+        UserName = 'Foreground1'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList2: TppParameterList
+    end
   end
   object Receber3: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -1625,19 +1857,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 168
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand3: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel35: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Pagamento'
         Font.Charset = DEFAULT_CHARSET
@@ -1655,6 +1922,7 @@ object fRContas: TfRContas
       end
       object lblData3: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -1672,6 +1940,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable7: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1686,6 +1955,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable8: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1701,6 +1971,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable9: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1716,6 +1987,7 @@ object fRContas: TfRContas
       end
       object ppLabel37: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1731,6 +2003,7 @@ object fRContas: TfRContas
       end
       object ppLabel38: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1746,6 +2019,7 @@ object fRContas: TfRContas
       end
       object ppLabel39: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1761,6 +2035,7 @@ object fRContas: TfRContas
       end
       object ppLabel40: TppLabel
         UserName = 'Label5'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1776,6 +2051,7 @@ object fRContas: TfRContas
       end
       object ppLabel41: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1791,6 +2067,7 @@ object fRContas: TfRContas
       end
       object ppLabel43: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1806,6 +2083,7 @@ object fRContas: TfRContas
       end
       object ppLabel44: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1822,7 +2100,7 @@ object fRContas: TfRContas
       object ppLine7: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -1831,6 +2109,7 @@ object fRContas: TfRContas
       end
       object ppLabel45: TppLabel
         UserName = 'Label17'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1846,6 +2125,7 @@ object fRContas: TfRContas
       end
       object ppLabel51: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1861,12 +2141,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand3: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText23: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1882,7 +2166,9 @@ object fRContas: TfRContas
       end
       object ppDBText24: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1898,7 +2184,9 @@ object fRContas: TfRContas
       end
       object ppDBText25: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1914,7 +2202,9 @@ object fRContas: TfRContas
       end
       object ppDBText26: TppDBText
         UserName = 'DBText4'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1930,7 +2220,9 @@ object fRContas: TfRContas
       end
       object ppDBText27: TppDBText
         UserName = 'DBText5'
+        HyperlinkEnabled = False
         DataField = 'NOME'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -1946,7 +2238,9 @@ object fRContas: TfRContas
       end
       object ppDBText28: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1964,7 +2258,9 @@ object fRContas: TfRContas
       end
       object ppDBText30: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1982,7 +2278,9 @@ object fRContas: TfRContas
       end
       object ppDBText31: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2000,7 +2298,9 @@ object fRContas: TfRContas
       end
       object ppDBText32: TppDBText
         UserName = 'DBText11'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2016,7 +2316,9 @@ object fRContas: TfRContas
       end
       object ppDBText33: TppDBText
         UserName = 'DBText10'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2032,12 +2334,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand3: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc17: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2055,7 +2360,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc18: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2073,7 +2380,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc19: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2091,6 +2400,7 @@ object fRContas: TfRContas
       end
       object ppLabel46: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2107,6 +2417,7 @@ object fRContas: TfRContas
       end
       object ppLabel47: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2123,6 +2434,7 @@ object fRContas: TfRContas
       end
       object ppLabel48: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2139,6 +2451,7 @@ object fRContas: TfRContas
       end
       object ppLabel49: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2155,7 +2468,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc20: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2173,6 +2488,7 @@ object fRContas: TfRContas
       end
       object ppLabel50: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2190,7 +2506,7 @@ object fRContas: TfRContas
       object ppLine8: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 124884
         mmTop = 2381
@@ -2201,17 +2517,25 @@ object fRContas: TfRContas
     object ppGroup3: TppGroup
       BreakName = 'DATA_PAGO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand3: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 4763
         mmPrintPosition = 0
         object ppDBText29: TppDBText
           UserName = 'DBText7'
+          HyperlinkEnabled = False
           DataField = 'DATA_PAGO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -2228,6 +2552,7 @@ object fRContas: TfRContas
         end
         object ppLabel42: TppLabel
           UserName = 'Label7'
+          HyperlinkEnabled = False
           Caption = 'Dt.Pagto'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2244,12 +2569,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand3: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc21: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2269,7 +2598,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc22: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2289,7 +2620,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc23: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2309,6 +2642,7 @@ object fRContas: TfRContas
         end
         object ppLabel52: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2326,7 +2660,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc24: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -2348,7 +2684,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -2358,14 +2694,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers3: TppDesignLayers
+      object ppDesignLayer3: TppDesignLayer
+        UserName = 'Foreground2'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList3: TppParameterList
+    end
   end
   object Receber4: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -2373,19 +2720,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 32
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand4: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel36: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Contato e Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
@@ -2403,6 +2785,7 @@ object fRContas: TfRContas
       end
       object lblData4: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -2420,6 +2803,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable10: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2434,6 +2818,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable11: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2449,6 +2834,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable12: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2464,6 +2850,7 @@ object fRContas: TfRContas
       end
       object ppLabel54: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2479,6 +2866,7 @@ object fRContas: TfRContas
       end
       object ppLabel55: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2494,6 +2882,7 @@ object fRContas: TfRContas
       end
       object ppLabel56: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2509,6 +2898,7 @@ object fRContas: TfRContas
       end
       object ppLabel58: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2524,6 +2914,7 @@ object fRContas: TfRContas
       end
       object ppLabel59: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2539,6 +2930,7 @@ object fRContas: TfRContas
       end
       object ppLabel60: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2554,6 +2946,7 @@ object fRContas: TfRContas
       end
       object ppLabel61: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2570,7 +2963,7 @@ object fRContas: TfRContas
       object ppLine10: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -2579,6 +2972,7 @@ object fRContas: TfRContas
       end
       object ppLabel62: TppLabel
         UserName = 'Label17'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2594,6 +2988,7 @@ object fRContas: TfRContas
       end
       object ppLabel68: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2609,12 +3004,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand4: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText34: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2630,7 +3029,9 @@ object fRContas: TfRContas
       end
       object ppDBText35: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2646,7 +3047,9 @@ object fRContas: TfRContas
       end
       object ppDBText36: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2662,7 +3065,9 @@ object fRContas: TfRContas
       end
       object ppDBText39: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2680,7 +3085,9 @@ object fRContas: TfRContas
       end
       object ppDBText40: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2696,7 +3103,9 @@ object fRContas: TfRContas
       end
       object ppDBText41: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2714,7 +3123,9 @@ object fRContas: TfRContas
       end
       object ppDBText42: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2732,7 +3143,9 @@ object fRContas: TfRContas
       end
       object ppDBText43: TppDBText
         UserName = 'DBText11'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2748,7 +3161,9 @@ object fRContas: TfRContas
       end
       object ppDBText44: TppDBText
         UserName = 'DBText10'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2764,12 +3179,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand4: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 22490
       mmPrintPosition = 0
       object ppDBCalc25: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2787,7 +3205,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc26: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2805,7 +3225,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc27: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2823,6 +3245,7 @@ object fRContas: TfRContas
       end
       object ppLabel63: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2839,6 +3262,7 @@ object fRContas: TfRContas
       end
       object ppLabel64: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2855,6 +3279,7 @@ object fRContas: TfRContas
       end
       object ppLabel65: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2871,6 +3296,7 @@ object fRContas: TfRContas
       end
       object ppLabel66: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2887,7 +3313,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc28: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -2905,6 +3333,7 @@ object fRContas: TfRContas
       end
       object ppLabel67: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2922,7 +3351,7 @@ object fRContas: TfRContas
       object ppLine11: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 110067
         mmTop = 1588
@@ -2933,17 +3362,25 @@ object fRContas: TfRContas
     object ppGroup4: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand4: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 6350
         mmPrintPosition = 0
         object ppDBText37: TppDBText
           UserName = 'DBText4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -2960,7 +3397,9 @@ object fRContas: TfRContas
         end
         object ppDBText38: TppDBText
           UserName = 'DBText5'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -2977,6 +3416,7 @@ object fRContas: TfRContas
         end
         object ppLabel57: TppLabel
           UserName = 'Label5'
+          HyperlinkEnabled = False
           Caption = 'Contato'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2993,12 +3433,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand4: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc29: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3018,7 +3462,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc30: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3038,7 +3484,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc31: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3058,6 +3506,7 @@ object fRContas: TfRContas
         end
         object ppLabel69: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3075,7 +3524,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc32: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -3097,7 +3548,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -3107,14 +3558,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers4: TppDesignLayers
+      object ppDesignLayer4: TppDesignLayer
+        UserName = 'Foreground3'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList4: TppParameterList
+    end
   end
   object Receber5: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -3122,19 +3584,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 104
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand5: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel53: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Contato e Vencimento'
         Font.Charset = DEFAULT_CHARSET
@@ -3152,6 +3649,7 @@ object fRContas: TfRContas
       end
       object lblData5: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -3169,6 +3667,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable13: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3183,6 +3682,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable14: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3198,6 +3698,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable15: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3213,6 +3714,7 @@ object fRContas: TfRContas
       end
       object ppLabel71: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3228,6 +3730,7 @@ object fRContas: TfRContas
       end
       object ppLabel72: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3243,6 +3746,7 @@ object fRContas: TfRContas
       end
       object ppLabel73: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3258,6 +3762,7 @@ object fRContas: TfRContas
       end
       object ppLabel74: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3273,6 +3778,7 @@ object fRContas: TfRContas
       end
       object ppLabel75: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3288,6 +3794,7 @@ object fRContas: TfRContas
       end
       object ppLabel76: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3303,6 +3810,7 @@ object fRContas: TfRContas
       end
       object ppLabel77: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3319,7 +3827,7 @@ object fRContas: TfRContas
       object ppLine13: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -3328,6 +3836,7 @@ object fRContas: TfRContas
       end
       object ppLabel78: TppLabel
         UserName = 'Label17'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3343,6 +3852,7 @@ object fRContas: TfRContas
       end
       object ppLabel79: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3358,12 +3868,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand5: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText45: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3379,7 +3893,9 @@ object fRContas: TfRContas
       end
       object ppDBText46: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3395,7 +3911,9 @@ object fRContas: TfRContas
       end
       object ppDBText47: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3411,7 +3929,9 @@ object fRContas: TfRContas
       end
       object ppDBText48: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3429,7 +3949,9 @@ object fRContas: TfRContas
       end
       object ppDBText49: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3445,7 +3967,9 @@ object fRContas: TfRContas
       end
       object ppDBText50: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3463,7 +3987,9 @@ object fRContas: TfRContas
       end
       object ppDBText51: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3481,7 +4007,9 @@ object fRContas: TfRContas
       end
       object ppDBText52: TppDBText
         UserName = 'DBText11'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3497,7 +4025,9 @@ object fRContas: TfRContas
       end
       object ppDBText53: TppDBText
         UserName = 'DBText10'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3513,12 +4043,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand5: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 22490
       mmPrintPosition = 0
       object ppDBCalc33: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3536,7 +4069,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc34: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3554,7 +4089,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc35: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3572,6 +4109,7 @@ object fRContas: TfRContas
       end
       object ppLabel80: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3588,6 +4126,7 @@ object fRContas: TfRContas
       end
       object ppLabel81: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3604,6 +4143,7 @@ object fRContas: TfRContas
       end
       object ppLabel82: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3620,6 +4160,7 @@ object fRContas: TfRContas
       end
       object ppLabel83: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3636,7 +4177,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc36: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3654,6 +4197,7 @@ object fRContas: TfRContas
       end
       object ppLabel84: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3671,7 +4215,7 @@ object fRContas: TfRContas
       object ppLine14: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 110067
         mmTop = 1588
@@ -3682,17 +4226,25 @@ object fRContas: TfRContas
     object ppGroup5: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand5: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 6350
         mmPrintPosition = 0
         object ppDBText54: TppDBText
           UserName = 'DBText4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -3709,7 +4261,9 @@ object fRContas: TfRContas
         end
         object ppDBText55: TppDBText
           UserName = 'DBText5'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -3726,6 +4280,7 @@ object fRContas: TfRContas
         end
         object ppLabel85: TppLabel
           UserName = 'Label5'
+          HyperlinkEnabled = False
           Caption = 'Contato'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3742,12 +4297,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand5: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc37: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3767,7 +4326,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc38: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3787,7 +4348,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc39: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3807,6 +4370,7 @@ object fRContas: TfRContas
         end
         object ppLabel86: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3824,7 +4388,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc40: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -3846,7 +4412,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -3856,14 +4422,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers5: TppDesignLayers
+      object ppDesignLayer5: TppDesignLayer
+        UserName = 'Foreground4'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList5: TppParameterList
+    end
   end
   object Receber6: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -3871,19 +4448,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 168
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand6: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel70: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Contato e Pagamento'
         Font.Charset = DEFAULT_CHARSET
@@ -3901,6 +4513,7 @@ object fRContas: TfRContas
       end
       object lblData6: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -3918,6 +4531,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable16: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -3932,6 +4546,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable17: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3947,6 +4562,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable18: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3962,6 +4578,7 @@ object fRContas: TfRContas
       end
       object ppLabel88: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3977,6 +4594,7 @@ object fRContas: TfRContas
       end
       object ppLabel89: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -3992,6 +4610,7 @@ object fRContas: TfRContas
       end
       object ppLabel90: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4007,6 +4626,7 @@ object fRContas: TfRContas
       end
       object ppLabel91: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4022,6 +4642,7 @@ object fRContas: TfRContas
       end
       object ppLabel92: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4037,6 +4658,7 @@ object fRContas: TfRContas
       end
       object ppLabel93: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4052,6 +4674,7 @@ object fRContas: TfRContas
       end
       object ppLabel94: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4068,7 +4691,7 @@ object fRContas: TfRContas
       object ppLine16: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -4077,6 +4700,7 @@ object fRContas: TfRContas
       end
       object ppLabel95: TppLabel
         UserName = 'Label17'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4092,6 +4716,7 @@ object fRContas: TfRContas
       end
       object ppLabel96: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4107,12 +4732,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand6: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText56: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4128,7 +4757,9 @@ object fRContas: TfRContas
       end
       object ppDBText57: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4144,7 +4775,9 @@ object fRContas: TfRContas
       end
       object ppDBText58: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4160,7 +4793,9 @@ object fRContas: TfRContas
       end
       object ppDBText59: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4178,7 +4813,9 @@ object fRContas: TfRContas
       end
       object ppDBText60: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4194,7 +4831,9 @@ object fRContas: TfRContas
       end
       object ppDBText61: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4212,7 +4851,9 @@ object fRContas: TfRContas
       end
       object ppDBText62: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4230,7 +4871,9 @@ object fRContas: TfRContas
       end
       object ppDBText63: TppDBText
         UserName = 'DBText11'
+        HyperlinkEnabled = False
         DataField = 'ID_CONTABANCO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4246,7 +4889,9 @@ object fRContas: TfRContas
       end
       object ppDBText64: TppDBText
         UserName = 'DBText10'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4262,12 +4907,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand6: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 22490
       mmPrintPosition = 0
       object ppDBCalc41: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4285,7 +4933,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc42: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4303,7 +4953,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc43: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4321,6 +4973,7 @@ object fRContas: TfRContas
       end
       object ppLabel97: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4337,6 +4990,7 @@ object fRContas: TfRContas
       end
       object ppLabel98: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4353,6 +5007,7 @@ object fRContas: TfRContas
       end
       object ppLabel99: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4369,6 +5024,7 @@ object fRContas: TfRContas
       end
       object ppLabel100: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4385,7 +5041,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc44: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4403,6 +5061,7 @@ object fRContas: TfRContas
       end
       object ppLabel101: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4420,7 +5079,7 @@ object fRContas: TfRContas
       object ppLine17: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 110067
         mmTop = 1588
@@ -4431,17 +5090,25 @@ object fRContas: TfRContas
     object ppGroup6: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand6: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 6350
         mmPrintPosition = 0
         object ppDBText65: TppDBText
           UserName = 'DBText4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -4458,7 +5125,9 @@ object fRContas: TfRContas
         end
         object ppDBText66: TppDBText
           UserName = 'DBText5'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -4475,6 +5144,7 @@ object fRContas: TfRContas
         end
         object ppLabel102: TppLabel
           UserName = 'Label5'
+          HyperlinkEnabled = False
           Caption = 'Contato'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4491,12 +5161,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand6: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc45: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4516,7 +5190,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc46: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4536,7 +5212,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc47: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4556,6 +5234,7 @@ object fRContas: TfRContas
         end
         object ppLabel103: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4573,7 +5252,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc48: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -4595,7 +5276,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -4605,14 +5286,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers6: TppDesignLayers
+      object ppDesignLayer6: TppDesignLayer
+        UserName = 'Foreground5'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList6: TppParameterList
+    end
   end
   object Receber7: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -4620,19 +5312,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 256
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand7: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel87: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
@@ -4650,6 +5377,7 @@ object fRContas: TfRContas
       end
       object lblData7: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -4667,6 +5395,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable19: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -4681,6 +5410,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable20: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4696,6 +5426,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable21: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4711,6 +5442,7 @@ object fRContas: TfRContas
       end
       object ppLabel109: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4726,6 +5458,7 @@ object fRContas: TfRContas
       end
       object ppLabel111: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4741,6 +5474,7 @@ object fRContas: TfRContas
       end
       object ppLabel112: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4757,7 +5491,7 @@ object fRContas: TfRContas
       object ppLine19: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -4766,6 +5500,7 @@ object fRContas: TfRContas
       end
       object ppLabel119: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4781,17 +5516,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand7: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand7: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc49: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4809,7 +5549,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc50: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4827,7 +5569,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc51: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4845,6 +5589,7 @@ object fRContas: TfRContas
       end
       object ppLabel114: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4861,6 +5606,7 @@ object fRContas: TfRContas
       end
       object ppLabel115: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4877,6 +5623,7 @@ object fRContas: TfRContas
       end
       object ppLabel116: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4893,6 +5640,7 @@ object fRContas: TfRContas
       end
       object ppLabel117: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4910,7 +5658,7 @@ object fRContas: TfRContas
       object ppLine20: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -4920,7 +5668,7 @@ object fRContas: TfRContas
       object ppLine21: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -4931,22 +5679,32 @@ object fRContas: TfRContas
     object ppGroup7: TppGroup
       BreakName = 'DATA_EMISSAO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand7: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand7: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc53: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4966,7 +5724,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc54: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4986,7 +5746,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc55: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5006,7 +5768,9 @@ object fRContas: TfRContas
         end
         object ppDBText77: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'DATA_EMISSAO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -5023,14 +5787,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers7: TppDesignLayers
+      object ppDesignLayer7: TppDesignLayer
+        UserName = 'Foreground6'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList7: TppParameterList
+    end
   end
   object Receber8: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -5038,19 +5813,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 312
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand8: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel104: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Vencimento'
         Font.Charset = DEFAULT_CHARSET
@@ -5068,6 +5878,7 @@ object fRContas: TfRContas
       end
       object lblData8: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -5085,6 +5896,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable22: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -5099,6 +5911,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable23: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5114,6 +5927,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable24: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5129,6 +5943,7 @@ object fRContas: TfRContas
       end
       object ppLabel106: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5144,6 +5959,7 @@ object fRContas: TfRContas
       end
       object ppLabel107: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5159,6 +5975,7 @@ object fRContas: TfRContas
       end
       object ppLabel108: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5175,7 +5992,7 @@ object fRContas: TfRContas
       object ppLine22: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -5184,6 +6001,7 @@ object fRContas: TfRContas
       end
       object ppLabel110: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5199,17 +6017,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand8: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand8: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc56: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5227,7 +6050,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc57: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5245,7 +6070,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc58: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5263,6 +6090,7 @@ object fRContas: TfRContas
       end
       object ppLabel113: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5279,6 +6107,7 @@ object fRContas: TfRContas
       end
       object ppLabel120: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5295,6 +6124,7 @@ object fRContas: TfRContas
       end
       object ppLabel121: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5311,6 +6141,7 @@ object fRContas: TfRContas
       end
       object ppLabel122: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5328,7 +6159,7 @@ object fRContas: TfRContas
       object ppLine23: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -5338,7 +6169,7 @@ object fRContas: TfRContas
       object ppLine24: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -5349,22 +6180,32 @@ object fRContas: TfRContas
     object ppGroup8: TppGroup
       BreakName = 'DATA_VENCTO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand8: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand8: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc60: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5384,7 +6225,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc61: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5404,7 +6247,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc62: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5424,7 +6269,9 @@ object fRContas: TfRContas
         end
         object ppDBText67: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'DATA_VENCTO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -5441,14 +6288,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers8: TppDesignLayers
+      object ppDesignLayer8: TppDesignLayer
+        UserName = 'Foreground7'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList8: TppParameterList
+    end
   end
   object Receber9: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -5456,19 +6314,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 376
     Top = 64
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand9: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel105: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Pagamento'
         Font.Charset = DEFAULT_CHARSET
@@ -5486,6 +6379,7 @@ object fRContas: TfRContas
       end
       object lblData9: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -5503,6 +6397,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable25: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -5517,6 +6412,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable26: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5532,6 +6428,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable27: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5547,6 +6444,7 @@ object fRContas: TfRContas
       end
       object ppLabel123: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5562,6 +6460,7 @@ object fRContas: TfRContas
       end
       object ppLabel124: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5577,6 +6476,7 @@ object fRContas: TfRContas
       end
       object ppLabel125: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5593,7 +6493,7 @@ object fRContas: TfRContas
       object ppLine25: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -5602,6 +6502,7 @@ object fRContas: TfRContas
       end
       object ppLabel126: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagamento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5617,17 +6518,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand9: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand9: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc52: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5645,7 +6551,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc59: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5663,7 +6571,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc63: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5681,6 +6591,7 @@ object fRContas: TfRContas
       end
       object ppLabel127: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5697,6 +6608,7 @@ object fRContas: TfRContas
       end
       object ppLabel128: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5713,6 +6625,7 @@ object fRContas: TfRContas
       end
       object ppLabel129: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5729,6 +6642,7 @@ object fRContas: TfRContas
       end
       object ppLabel130: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5746,7 +6660,7 @@ object fRContas: TfRContas
       object ppLine26: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -5756,7 +6670,7 @@ object fRContas: TfRContas
       object ppLine27: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -5767,22 +6681,32 @@ object fRContas: TfRContas
     object ppGroup9: TppGroup
       BreakName = 'DATA_PAGO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand9: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand9: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc64: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5802,7 +6726,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc65: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5822,7 +6748,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc66: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5842,7 +6770,9 @@ object fRContas: TfRContas
         end
         object ppDBText68: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'DATA_PAGO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -5859,14 +6789,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers9: TppDesignLayers
+      object ppDesignLayer9: TppDesignLayer
+        UserName = 'Foreground8'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList9: TppParameterList
+    end
   end
   object Receber10: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -5874,19 +6815,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 256
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand10: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel118: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Contato e Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
@@ -5904,6 +6880,7 @@ object fRContas: TfRContas
       end
       object lblData10: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -5921,6 +6898,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable28: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -5935,6 +6913,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable29: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5950,6 +6929,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable30: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5965,6 +6945,7 @@ object fRContas: TfRContas
       end
       object ppLabel132: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5980,6 +6961,7 @@ object fRContas: TfRContas
       end
       object ppLabel133: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -5995,6 +6977,7 @@ object fRContas: TfRContas
       end
       object ppLabel134: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6011,7 +6994,7 @@ object fRContas: TfRContas
       object ppLine28: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -6020,6 +7003,7 @@ object fRContas: TfRContas
       end
       object ppLabel135: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6035,17 +7019,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand10: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand10: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc67: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6063,7 +7052,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc68: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6081,7 +7072,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc69: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6099,6 +7092,7 @@ object fRContas: TfRContas
       end
       object ppLabel136: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6115,6 +7109,7 @@ object fRContas: TfRContas
       end
       object ppLabel137: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6131,6 +7126,7 @@ object fRContas: TfRContas
       end
       object ppLabel138: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6147,6 +7143,7 @@ object fRContas: TfRContas
       end
       object ppLabel139: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6164,7 +7161,7 @@ object fRContas: TfRContas
       object ppLine29: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -6174,7 +7171,7 @@ object fRContas: TfRContas
       object ppLine30: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -6185,22 +7182,32 @@ object fRContas: TfRContas
     object ppGroup10: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand10: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand10: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc70: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6220,7 +7227,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc71: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6240,7 +7249,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc72: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6260,7 +7271,9 @@ object fRContas: TfRContas
         end
         object ppDBText69: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -6277,7 +7290,9 @@ object fRContas: TfRContas
         end
         object ppDBText70: TppDBText
           UserName = 'DBText70'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -6294,14 +7309,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers10: TppDesignLayers
+      object ppDesignLayer10: TppDesignLayer
+        UserName = 'Foreground9'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList10: TppParameterList
+    end
   end
   object Receber11: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -6309,19 +7335,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 312
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand11: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel131: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Contato e Vencimento'
         Font.Charset = DEFAULT_CHARSET
@@ -6339,6 +7400,7 @@ object fRContas: TfRContas
       end
       object lblData11: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -6356,6 +7418,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable31: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -6370,6 +7433,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable32: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6385,6 +7449,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable33: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6400,6 +7465,7 @@ object fRContas: TfRContas
       end
       object ppLabel141: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6415,6 +7481,7 @@ object fRContas: TfRContas
       end
       object ppLabel142: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6430,6 +7497,7 @@ object fRContas: TfRContas
       end
       object ppLabel143: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6446,7 +7514,7 @@ object fRContas: TfRContas
       object ppLine31: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -6455,6 +7523,7 @@ object fRContas: TfRContas
       end
       object ppLabel144: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6470,17 +7539,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand11: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand11: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc73: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6498,7 +7572,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc74: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6516,7 +7592,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc75: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6534,6 +7612,7 @@ object fRContas: TfRContas
       end
       object ppLabel145: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6550,6 +7629,7 @@ object fRContas: TfRContas
       end
       object ppLabel146: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6566,6 +7646,7 @@ object fRContas: TfRContas
       end
       object ppLabel147: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6582,6 +7663,7 @@ object fRContas: TfRContas
       end
       object ppLabel148: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6599,7 +7681,7 @@ object fRContas: TfRContas
       object ppLine32: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -6609,7 +7691,7 @@ object fRContas: TfRContas
       object ppLine33: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -6620,22 +7702,32 @@ object fRContas: TfRContas
     object ppGroup11: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand11: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand11: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc76: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6655,7 +7747,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc77: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6675,7 +7769,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc78: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6695,7 +7791,9 @@ object fRContas: TfRContas
         end
         object ppDBText71: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -6712,7 +7810,9 @@ object fRContas: TfRContas
         end
         object ppDBText72: TppDBText
           UserName = 'DBText70'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -6729,14 +7829,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers11: TppDesignLayers
+      object ppDesignLayer11: TppDesignLayer
+        UserName = 'Foreground10'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList11: TppParameterList
+    end
   end
   object Receber12: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -6744,19 +7855,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 376
     Top = 112
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand12: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel140: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Contato e Pagamento'
         Font.Charset = DEFAULT_CHARSET
@@ -6774,6 +7920,7 @@ object fRContas: TfRContas
       end
       object lblData12: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -6791,6 +7938,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable34: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -6805,6 +7953,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable35: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6820,6 +7969,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable36: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6835,6 +7985,7 @@ object fRContas: TfRContas
       end
       object ppLabel150: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6850,6 +8001,7 @@ object fRContas: TfRContas
       end
       object ppLabel151: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6865,6 +8017,7 @@ object fRContas: TfRContas
       end
       object ppLabel152: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6881,7 +8034,7 @@ object fRContas: TfRContas
       object ppLine34: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -6890,6 +8043,7 @@ object fRContas: TfRContas
       end
       object ppLabel153: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6905,17 +8059,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand12: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand12: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc79: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6933,7 +8092,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc80: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6951,7 +8112,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc81: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6969,6 +8132,7 @@ object fRContas: TfRContas
       end
       object ppLabel154: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6985,6 +8149,7 @@ object fRContas: TfRContas
       end
       object ppLabel155: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7001,6 +8166,7 @@ object fRContas: TfRContas
       end
       object ppLabel156: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7017,6 +8183,7 @@ object fRContas: TfRContas
       end
       object ppLabel157: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7034,7 +8201,7 @@ object fRContas: TfRContas
       object ppLine35: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -7044,7 +8211,7 @@ object fRContas: TfRContas
       object ppLine36: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -7055,22 +8222,32 @@ object fRContas: TfRContas
     object ppGroup12: TppGroup
       BreakName = 'COD_CLIENTE'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand12: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand12: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc82: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7090,7 +8267,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc83: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7110,7 +8289,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc84: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7130,7 +8311,9 @@ object fRContas: TfRContas
         end
         object ppDBText73: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -7147,7 +8330,9 @@ object fRContas: TfRContas
         end
         object ppDBText74: TppDBText
           UserName = 'DBText70'
+          HyperlinkEnabled = False
           DataField = 'NOME'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -7164,14 +8349,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers12: TppDesignLayers
+      object ppDesignLayer12: TppDesignLayer
+        UserName = 'Foreground11'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList12: TppParameterList
+    end
   end
   object Receber13: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -7179,19 +8375,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 32
     Top = 160
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand13: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel149: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Contas a Receber p/Conta Banc'#225'ria'
         Font.Charset = DEFAULT_CHARSET
@@ -7209,6 +8440,7 @@ object fRContas: TfRContas
       end
       object lblData13: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -7226,6 +8458,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable37: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7240,6 +8473,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable38: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7255,6 +8489,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable39: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7270,6 +8505,7 @@ object fRContas: TfRContas
       end
       object ppLabel159: TppLabel
         UserName = 'Label2'
+        HyperlinkEnabled = False
         Caption = 'Documento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7285,6 +8521,7 @@ object fRContas: TfRContas
       end
       object ppLabel160: TppLabel
         UserName = 'Label3'
+        HyperlinkEnabled = False
         Caption = 'N'#186'Pedido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7300,6 +8537,7 @@ object fRContas: TfRContas
       end
       object ppLabel161: TppLabel
         UserName = 'Label4'
+        HyperlinkEnabled = False
         Caption = 'Dt.Vencimento'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7315,6 +8553,7 @@ object fRContas: TfRContas
       end
       object ppLabel162: TppLabel
         UserName = 'Label5'
+        HyperlinkEnabled = False
         Caption = 'Contato'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7330,6 +8569,7 @@ object fRContas: TfRContas
       end
       object ppLabel163: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7345,6 +8585,7 @@ object fRContas: TfRContas
       end
       object ppLabel164: TppLabel
         UserName = 'Label7'
+        HyperlinkEnabled = False
         Caption = 'Dt.Pagto'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7360,6 +8601,7 @@ object fRContas: TfRContas
       end
       object ppLabel165: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7375,6 +8617,7 @@ object fRContas: TfRContas
       end
       object ppLabel166: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7391,7 +8634,7 @@ object fRContas: TfRContas
       object ppLine37: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -7400,6 +8643,7 @@ object fRContas: TfRContas
       end
       object ppLabel173: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Dt.Emiss'#227'o'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7415,12 +8659,16 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand13: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 3175
       mmPrintPosition = 0
       object ppDBText75: TppDBText
         UserName = 'DBText1'
+        HyperlinkEnabled = False
         DataField = 'DOCUMENTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7436,7 +8684,9 @@ object fRContas: TfRContas
       end
       object ppDBText76: TppDBText
         UserName = 'DBText2'
+        HyperlinkEnabled = False
         DataField = 'NUM_PEDIDO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7452,7 +8702,9 @@ object fRContas: TfRContas
       end
       object ppDBText78: TppDBText
         UserName = 'DBText3'
+        HyperlinkEnabled = False
         DataField = 'DATA_VENCTO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7468,7 +8720,9 @@ object fRContas: TfRContas
       end
       object ppDBText79: TppDBText
         UserName = 'DBText4'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7484,7 +8738,9 @@ object fRContas: TfRContas
       end
       object ppDBText80: TppDBText
         UserName = 'DBText5'
+        HyperlinkEnabled = False
         DataField = 'NOME'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7500,7 +8756,9 @@ object fRContas: TfRContas
       end
       object ppDBText81: TppDBText
         UserName = 'DBText6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7518,7 +8776,9 @@ object fRContas: TfRContas
       end
       object ppDBText82: TppDBText
         UserName = 'DBText7'
+        HyperlinkEnabled = False
         DataField = 'DATA_PAGO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7534,7 +8794,9 @@ object fRContas: TfRContas
       end
       object ppDBText83: TppDBText
         UserName = 'DBText8'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7552,7 +8814,9 @@ object fRContas: TfRContas
       end
       object ppDBText84: TppDBText
         UserName = 'DBText9'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7570,7 +8834,9 @@ object fRContas: TfRContas
       end
       object ppDBText86: TppDBText
         UserName = 'DBText10'
+        HyperlinkEnabled = False
         DataField = 'DATA_EMISSAO'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7586,12 +8852,15 @@ object fRContas: TfRContas
       end
     end
     object ppSummaryBand13: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc85: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7609,7 +8878,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc86: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7627,7 +8898,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc87: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7645,6 +8918,7 @@ object fRContas: TfRContas
       end
       object ppLabel168: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7661,6 +8935,7 @@ object fRContas: TfRContas
       end
       object ppLabel169: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7677,6 +8952,7 @@ object fRContas: TfRContas
       end
       object ppLabel170: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7693,6 +8969,7 @@ object fRContas: TfRContas
       end
       object ppLabel171: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7709,7 +8986,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc88: TppDBCalc
         UserName = 'DBCalc8'
+        HyperlinkEnabled = False
         DataField = 'COD_CLIENTE'
+        DataPipeline = DBReceber
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -7727,6 +9006,7 @@ object fRContas: TfRContas
       end
       object ppLabel172: TppLabel
         UserName = 'Label16'
+        HyperlinkEnabled = False
         Caption = 'Qtde T'#237'tulos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -7744,7 +9024,7 @@ object fRContas: TfRContas
       object ppLine38: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 124884
         mmTop = 2381
@@ -7755,17 +9035,25 @@ object fRContas: TfRContas
     object ppGroup13: TppGroup
       BreakName = 'ID_CONTABANCO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand13: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 4763
         mmPrintPosition = 0
         object ppDBText85: TppDBText
           UserName = 'DBText11'
+          HyperlinkEnabled = False
           DataField = 'ID_CONTABANCO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -7782,6 +9070,7 @@ object fRContas: TfRContas
         end
         object ppLabel167: TppLabel
           UserName = 'Label17'
+          HyperlinkEnabled = False
           Caption = 'Conta'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7798,7 +9087,9 @@ object fRContas: TfRContas
         end
         object ppDBText87: TppDBText
           UserName = 'DBText12'
+          HyperlinkEnabled = False
           DataField = 'NUM_CONTA'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -7815,12 +9106,16 @@ object fRContas: TfRContas
         end
       end
       object ppGroupFooterBand13: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 4233
         mmPrintPosition = 0
         object ppDBCalc89: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7840,7 +9135,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc90: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7860,7 +9157,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc91: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7880,6 +9179,7 @@ object fRContas: TfRContas
         end
         object ppLabel174: TppLabel
           UserName = 'Label11'
+          HyperlinkEnabled = False
           Caption = 'Total =>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -7897,7 +9197,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc92: TppDBCalc
           UserName = 'DBCalc4'
+          HyperlinkEnabled = False
           DataField = 'COD_CLIENTE'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -7919,7 +9221,7 @@ object fRContas: TfRContas
           UserName = 'Line2'
           Pen.Style = psDot
           Position = lpBottom
-          Weight = 0.75
+          Weight = 0.750000000000000000
           mmHeight = 1852
           mmLeft = 0
           mmTop = 2381
@@ -7929,14 +9231,25 @@ object fRContas: TfRContas
         end
       end
     end
+    object ppDesignLayers13: TppDesignLayers
+      object ppDesignLayer13: TppDesignLayer
+        UserName = 'Foreground12'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList13: TppParameterList
+    end
   end
   object Receber14: TppReport
     AutoStop = False
+    DataPipeline = DBReceber
     PassSetting = psTwoPass
     PrinterSetup.BinName = 'Default'
     PrinterSetup.DocumentName = 'Report'
     PrinterSetup.PaperName = 'A4'
     PrinterSetup.PrinterName = 'Default'
+    PrinterSetup.SaveDeviceSettings = False
     PrinterSetup.mmMarginBottom = 6350
     PrinterSetup.mmMarginLeft = 6350
     PrinterSetup.mmMarginRight = 6350
@@ -7944,19 +9257,54 @@ object fRContas: TfRContas
     PrinterSetup.mmPaperHeight = 297000
     PrinterSetup.mmPaperWidth = 210000
     PrinterSetup.PaperSize = 9
+    ArchiveFileName = '($MyDocuments)\ReportArchive.raf'
     DeviceType = 'Screen'
+    DefaultFileDeviceType = 'PDF'
+    EmailSettings.ReportFormat = 'PDF'
+    LanguageID = 'Default'
     OnPreviewFormCreate = Receber1PreviewFormCreate
+    OpenFile = False
+    OutlineSettings.CreateNode = True
+    OutlineSettings.CreatePageNodes = True
+    OutlineSettings.Enabled = False
+    OutlineSettings.Visible = False
+    ThumbnailSettings.Enabled = True
+    ThumbnailSettings.Visible = True
+    ThumbnailSettings.DeadSpace = 30
+    PDFSettings.EmbedFontOptions = [efUseSubset]
+    PDFSettings.EncryptSettings.AllowCopy = True
+    PDFSettings.EncryptSettings.AllowInteract = True
+    PDFSettings.EncryptSettings.AllowModify = True
+    PDFSettings.EncryptSettings.AllowPrint = True
+    PDFSettings.EncryptSettings.Enabled = False
+    PDFSettings.EncryptSettings.KeyLength = kl40Bit
+    PDFSettings.FontEncoding = feAnsi
+    PDFSettings.ImageCompressionLevel = 25
+    RTFSettings.DefaultFont.Charset = DEFAULT_CHARSET
+    RTFSettings.DefaultFont.Color = clWindowText
+    RTFSettings.DefaultFont.Height = -13
+    RTFSettings.DefaultFont.Name = 'Arial'
+    RTFSettings.DefaultFont.Style = []
+    TextFileName = '($MyDocuments)\Report.pdf'
+    TextSearchSettings.DefaultString = '<Texto a localizar>'
+    TextSearchSettings.Enabled = False
+    XLSSettings.AppName = 'ReportBuilder'
+    XLSSettings.Author = 'ReportBuilder'
+    XLSSettings.Subject = 'Report'
+    XLSSettings.Title = 'Report'
     Left = 104
     Top = 160
-    Version = '6.0'
+    Version = '15.03'
     mmColumnWidth = 0
     DataPipelineName = 'DBReceber'
     object ppHeaderBand14: TppHeaderBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 19050
       mmPrintPosition = 0
       object ppLabel158: TppLabel
         UserName = 'Label1'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'Resumo a Receber p/Conta Banc'#225'ria'
         Font.Charset = DEFAULT_CHARSET
@@ -7974,6 +9322,7 @@ object fRContas: TfRContas
       end
       object lblData14: TppLabel
         UserName = 'lblData'
+        HyperlinkEnabled = False
         AutoSize = False
         Caption = 'lblData'
         Font.Charset = DEFAULT_CHARSET
@@ -7991,6 +9340,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable40: TppSystemVariable
         UserName = 'SystemVariable1'
+        HyperlinkEnabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Name = 'Arial'
@@ -8005,6 +9355,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable41: TppSystemVariable
         UserName = 'SystemVariable2'
+        HyperlinkEnabled = False
         VarType = vtTime
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8020,6 +9371,7 @@ object fRContas: TfRContas
       end
       object ppSystemVariable42: TppSystemVariable
         UserName = 'SystemVariable3'
+        HyperlinkEnabled = False
         VarType = vtPageSetDesc
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8035,6 +9387,7 @@ object fRContas: TfRContas
       end
       object ppLabel176: TppLabel
         UserName = 'Label6'
+        HyperlinkEnabled = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8050,6 +9403,7 @@ object fRContas: TfRContas
       end
       object ppLabel177: TppLabel
         UserName = 'Label9'
+        HyperlinkEnabled = False
         Caption = 'Valor Pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8065,6 +9419,7 @@ object fRContas: TfRContas
       end
       object ppLabel178: TppLabel
         UserName = 'Label10'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8081,7 +9436,7 @@ object fRContas: TfRContas
       object ppLine40: TppLine
         UserName = 'Line1'
         Position = lpBottom
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 2117
         mmLeft = 0
         mmTop = 16933
@@ -8090,6 +9445,7 @@ object fRContas: TfRContas
       end
       object ppLabel179: TppLabel
         UserName = 'Label8'
+        HyperlinkEnabled = False
         Caption = 'Conta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8105,17 +9461,22 @@ object fRContas: TfRContas
       end
     end
     object ppDetailBand14: TppDetailBand
+      Background1.Brush.Style = bsClear
+      Background2.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 0
       mmPrintPosition = 0
     end
     object ppSummaryBand14: TppSummaryBand
+      Background.Brush.Style = bsClear
       mmBottomOffset = 0
       mmHeight = 26458
       mmPrintPosition = 0
       object ppDBCalc93: TppDBCalc
         UserName = 'DBCalc5'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGAR'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8133,7 +9494,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc94: TppDBCalc
         UserName = 'DBCalc6'
+        HyperlinkEnabled = False
         DataField = 'VALOR_PAGO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8151,7 +9514,9 @@ object fRContas: TfRContas
       end
       object ppDBCalc95: TppDBCalc
         UserName = 'DBCalc7'
+        HyperlinkEnabled = False
         DataField = 'SALDO'
+        DataPipeline = DBReceber
         DisplayFormat = ',##0.00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8169,6 +9534,7 @@ object fRContas: TfRContas
       end
       object ppLabel180: TppLabel
         UserName = 'Label12'
+        HyperlinkEnabled = False
         Caption = 'Total Geral =>'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8185,6 +9551,7 @@ object fRContas: TfRContas
       end
       object ppLabel181: TppLabel
         UserName = 'Label13'
+        HyperlinkEnabled = False
         Caption = 'Valor Receber'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8201,6 +9568,7 @@ object fRContas: TfRContas
       end
       object ppLabel182: TppLabel
         UserName = 'Label14'
+        HyperlinkEnabled = False
         Caption = 'Valor Recebido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8217,6 +9585,7 @@ object fRContas: TfRContas
       end
       object ppLabel183: TppLabel
         UserName = 'Label15'
+        HyperlinkEnabled = False
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8234,7 +9603,7 @@ object fRContas: TfRContas
       object ppLine41: TppLine
         UserName = 'Line3'
         Position = lpLeft
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 16404
         mmLeft = 46567
         mmTop = 2646
@@ -8244,7 +9613,7 @@ object fRContas: TfRContas
       object ppLine42: TppLine
         UserName = 'Line21'
         Pen.Style = psDot
-        Weight = 0.75
+        Weight = 0.750000000000000000
         mmHeight = 1323
         mmLeft = 0
         mmTop = 0
@@ -8255,22 +9624,32 @@ object fRContas: TfRContas
     object ppGroup14: TppGroup
       BreakName = 'ID_CONTABANCO'
       DataPipeline = DBReceber
+      GroupFileSettings.NewFile = False
+      GroupFileSettings.EmailFile = False
+      OutlineSettings.CreateNode = True
+      StartOnOddPage = False
       UserName = 'Group1'
       mmNewColumnThreshold = 0
       mmNewPageThreshold = 0
       DataPipelineName = 'DBReceber'
+      NewFile = False
       object ppGroupHeaderBand14: TppGroupHeaderBand
+        Background.Brush.Style = bsClear
         mmBottomOffset = 0
         mmHeight = 0
         mmPrintPosition = 0
       end
       object ppGroupFooterBand14: TppGroupFooterBand
+        Background.Brush.Style = bsClear
+        HideWhenOneDetail = False
         mmBottomOffset = 0
         mmHeight = 3175
         mmPrintPosition = 0
         object ppDBCalc96: TppDBCalc
           UserName = 'DBCalc1'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGAR'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -8290,7 +9669,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc97: TppDBCalc
           UserName = 'DBCalc2'
+          HyperlinkEnabled = False
           DataField = 'VALOR_PAGO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -8310,7 +9691,9 @@ object fRContas: TfRContas
         end
         object ppDBCalc98: TppDBCalc
           UserName = 'DBCalc3'
+          HyperlinkEnabled = False
           DataField = 'SALDO'
+          DataPipeline = DBReceber
           DisplayFormat = ',##0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -8330,7 +9713,9 @@ object fRContas: TfRContas
         end
         object ppDBText88: TppDBText
           UserName = 'DBText10'
+          HyperlinkEnabled = False
           DataField = 'ID_CONTABANCO'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -8347,7 +9732,9 @@ object fRContas: TfRContas
         end
         object ppDBText89: TppDBText
           UserName = 'DBText70'
+          HyperlinkEnabled = False
           DataField = 'NUM_CONTA'
+          DataPipeline = DBReceber
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Name = 'Arial'
@@ -8363,6 +9750,15 @@ object fRContas: TfRContas
           GroupNo = 0
         end
       end
+    end
+    object ppDesignLayers14: TppDesignLayers
+      object ppDesignLayer14: TppDesignLayer
+        UserName = 'Foreground13'
+        LayerType = ltBanded
+        Index = 0
+      end
+    end
+    object ppParameterList14: TppParameterList
     end
   end
 end

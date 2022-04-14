@@ -298,9 +298,7 @@ begin
 
   if (vgUsuario <> 'SUPERVISOR') then
   begin
-    ExportarCargasWEB();
-    ExportarContasWEB();
-//    dmRegra.ExportarContasWEB();
+    dmRegra.ExportarContasWEB('','', 0);
     mnuExportarWEB.Visible := False;
   end;
 end;

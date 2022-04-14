@@ -74,7 +74,6 @@ object fExportarWEB: TfExportarWEB
     Align = alBottom
     BevelOuter = bvLowered
     TabOrder = 3
-    ExplicitTop = 170
     object btnExportar: TBitBtn
       Left = 110
       Top = 8

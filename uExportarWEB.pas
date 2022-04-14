@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.Mask, uDM, Data.FMTBcd, Data.DB, Data.SqlExpr, UUtil, uServicoCarga,
   uServicoConta, System.Generics.Collections, uCargaModel, uContaModel,
-  uServicoContaBanco, uContaBancoModel, uServicoFornecedor;
+  uServicoContaBanco, uContaBancoModel, uServicoFornecedor,
+  Data.Bind.Components, Data.Bind.ObjectScope, REST.Client, uDMRegra;
 
 type
   TfExportarWEB = class(TForm)
@@ -65,17 +66,21 @@ begin
     if rbCarga.Checked then
     begin
       if chkIncluir.Checked then
-        IncluirCargas()
+        dmRegra.ExportarCargaWEB(edtDataInicial.Text, edtDataFinal.Text, 1)
+//        IncluirCargas()
       else
-        ExportarCargas();
+        dmRegra.ExportarCargaWEB(edtDataInicial.Text, edtDataFinal.Text, 0);
+//        ExportarCargas();
     end;
 
     if rbContas.Checked then
     begin
       if chkIncluir.Checked then
-        IncluirContas()
+        dmRegra.ExportarContasWEB(edtDataInicial.Text, edtDataFinal.Text, 1)
+//        IncluirContas()
       else
-        ExportarContas();
+        dmRegra.ExportarContasWEB(edtDataInicial.Text, edtDataFinal.Text, 0);
+        //ExportarContas();
     end;
 
     if rbBanco.Checked then

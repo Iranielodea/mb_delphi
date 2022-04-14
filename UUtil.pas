@@ -101,6 +101,7 @@ function DataValida(Data: String): boolean;
 function Rateio(ValorItem, ValorRatear, ValorBruto: Real): Real;
 function ValidaCPF(CPF: String): boolean;
 function ValorAmericano(Valor: string): string;
+function DataEmBranco(AData: string): Boolean;
 
 implementation
 
@@ -364,8 +365,8 @@ end;
 
 function TiraAcento(Campo: string): string;
 Const
-  ComAcento = 'àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜºª';
-  SemAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU  ';
+  ComAcento = 'àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ';
+  SemAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCUE';
 var
 //  i: integer;
 //   vv,aux: string[1];
@@ -377,6 +378,11 @@ Begin
     if Pos(Campo[x],ComAcento) <> 0 Then
       Campo[x] := SemAcento[Pos(Campo[x],ComAcento)];
   end;
+  Campo.Replace('º', '', [rfReplaceAll]);
+  Campo.Replace('ª', '', [rfReplaceAll]);
+  Campo.Replace('°', '', [rfReplaceAll]);
+
+
   Result := Campo;
 
 
@@ -1540,6 +1546,14 @@ begin
       vlResult:='0';
    end;
    result:=vlResult;
+end;
+
+function DataEmBranco(AData: string): Boolean;
+begin
+  if (Trim(AData) = '/  /') or (Trim(AData) = '') then
+    Result := True
+  else
+    Result := False;
 end;
 
 end.

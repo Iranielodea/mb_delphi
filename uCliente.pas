@@ -634,7 +634,8 @@ procedure TfCliente.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
   FreeAndNil(FPessoaCredito);
-  dmRegra.ExportarClienteWEB();
+  if vgUsuario <> 'SUPERVISOR' then
+    dmRegra.ExportarClienteWEB();
 end;
 
 procedure TfCliente.FormCreate(Sender: TObject);

@@ -53,6 +53,7 @@ type
     function GetNomeCliente: string;
     function GetNomeFornecedor: string;
     function GetDocumento: string;
+    function GetNomeFormaPagto: string;
   public
     property Id: Integer read FId write SetId;
     property Codigo: Integer read FCodigo write SetCodigo;
@@ -70,7 +71,7 @@ type
     property TipoConta: Integer read FTipoConta write SetTipoConta;
     property Situacao: string read FSituacao write SetSituacao;
     property Documento: string read GetDocumento write SetDocumento;
-    property NomeFormaPagto: string read FNomeFormaPagto write SetNomeFormaPagto;
+    property NomeFormaPagto: string read GetNomeFormaPagto write SetNomeFormaPagto;
     property ContaBancoId: Integer read FContaBancoId write SetContaBancoId;
     property PedidoId: Integer read FPedidoId write SetPedidoId;
     property CodCliente: Integer read FCodCliente write SetCodCliente;
@@ -82,13 +83,30 @@ implementation
 { TCargaModel }
 
 function TContaModel.GetDocumento: string;
+var
+  schar, resultado: string;
+  i: Integer;
 begin
+  FDocumento := TiraAcento(FDocumento);
+  resultado := '';
+  for i := 1 to Length(FDocumento) do
+  begin
+    schar := Copy(FDocumento, i, 1);
+    if schar = 'º' then
+      schar := '';
+    resultado := resultado + schar;
+  end;
   Result := TiraAcento(FDocumento);
 end;
 
 function TContaModel.GetNomeCliente: string;
 begin
   Result := TiraAcento(FNomeCliente);
+end;
+
+function TContaModel.GetNomeFormaPagto: string;
+begin
+  Result := TiraAcento(FNomeFormaPagto);
 end;
 
 function TContaModel.GetNomeFornecedor: string;

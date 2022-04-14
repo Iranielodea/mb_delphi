@@ -32,6 +32,10 @@ object fCarga: TfCarga
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Carga'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -1340,6 +1344,10 @@ object fCarga: TfCarga
     object TabSheet3: TTabSheet
       Caption = 'Complemento'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -1821,6 +1829,10 @@ object fCarga: TfCarga
     object tsFinanceiro: TTabSheet
       Caption = 'Financeiro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel9: TPanel
         Left = 0
         Top = 0
@@ -2009,6 +2021,10 @@ object fCarga: TfCarga
     object TabSheet2: TTabSheet
       Caption = 'Usu'#225'rio'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0

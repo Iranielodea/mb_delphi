@@ -233,14 +233,24 @@ procedure TServicoCarga.ExportarNET;
 var
   repositorio: TRepositorioCarga;
   lista: TObjectList<TCargaModel>;
+  arq: TextFile;
 begin
   repositorio := TRepositorioCarga.Create;
   try
-    lista := repositorio.ObterPorExportarNET();
-    if lista.Count > 0 then
-    begin
-      Self.Incluir(lista);
-      dm.BancoDados.ExecuteDirect('UPDATE CARGA set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+    try
+      lista := repositorio.ObterPorExportarNET();
+      if lista.Count > 0 then
+      begin
+        Self.Incluir(lista);
+        dm.BancoDados.ExecuteDirect('UPDATE CARGA set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      end;
+    except on E: Exception do
+      begin
+        AssignFile(arq, 'web_carga.txt');
+        Rewrite(arq);
+        Writeln(arq, E.Message);
+        CloseFile(arq);
+      end;
     end;
   finally
     FreeAndNil(repositorio);

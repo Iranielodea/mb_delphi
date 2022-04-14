@@ -1,6 +1,6 @@
 object dmRegra: TdmRegra
   OldCreateOrder = False
-  Height = 204
+  Height = 248
   Width = 328
   object QContasCarga: TSQLDataSet
     CommandText = 
@@ -178,7 +178,7 @@ object dmRegra: TdmRegra
     SQL.Strings = (
       'SELECT COUNT(COD_CLIENTE) FROM CLIENTE WHERE EXPORTAR_NET = '#39'S'#39)
     SQLConnection = DM.BancoDados
-    Left = 152
+    Left = 144
     Top = 16
     object QClienteWEBCOUNT: TIntegerField
       FieldName = 'COUNT'
@@ -250,6 +250,19 @@ object dmRegra: TdmRegra
     Left = 216
     Top = 120
     object IntegerField3: TIntegerField
+      FieldName = 'COUNT'
+      Required = True
+    end
+  end
+  object QFornecedorWEB: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT COUNT(COD_FOR) FROM FORNECEDOR WHERE EXPORTAR_NET = '#39'S'#39)
+    SQLConnection = DM.BancoDados
+    Left = 280
+    Top = 120
+    object IntegerField4: TIntegerField
       FieldName = 'COUNT'
       Required = True
     end

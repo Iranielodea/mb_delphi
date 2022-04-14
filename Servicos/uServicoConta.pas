@@ -56,6 +56,7 @@ var
   urlBase: string;
   sResultado: string;
   Model: TContaModel;
+  arq: TextFile;
 begin
   //ATipo = 0-Post 1-Put 2-Incluir
   urlBase := FUrlBase; // 'http://localhost/mb/api_v2';
@@ -63,10 +64,16 @@ begin
 
   Client := TRESTClient.Create(nil);
   Request := TRESTRequest.Create(nil);
+  Request.Accept := 'application/json, text/plain; q=0.9, text/html;q=0.8,';
+  Request.AcceptCharset := 'UTF-8, *;q=0.8';
+
   Response := TRESTResponse.Create(nil);
   try
     for Model in AModel do
     begin
+      if Model.Codigo <> 6811 then
+        Continue;
+
       json := TJSONObject.Create;
       json.AddPair('id', TJSONNumber.Create(0));
       json.AddPair('codigo', TJSONNumber.Create(Model.Codigo));
@@ -113,6 +120,12 @@ begin
 
       arrayItem.AddElement(json);
     end;
+
+    AssignFile(arq, 'json.txt');
+    Rewrite(arq);
+    Writeln(arq, arrayItem.ToString);
+    CloseFile(arq);
+
     Request.Client := Client;
     Request.Response := Response;
 
@@ -184,15 +197,25 @@ procedure TServicoConta.ExportarNET;
 var
   repositorio: TRepositorioConta;
   lista: TObjectList<TContaModel>;
+  arq: TextFile;
 begin
   repositorio := TRepositorioConta.Create;
   try
-    lista := repositorio.ObterPorExportarNET();
+    try
+      lista := repositorio.ObterPorExportarNET();
 
-    if lista.Count > 0 then
-    begin
-      Self.Incluir(lista);
-      dm.BancoDados.ExecuteDirect('UPDATE CONTAS set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      if lista.Count > 0 then
+      begin
+        Self.Incluir(lista);
+        dm.BancoDados.ExecuteDirect('UPDATE CONTAS set EXPORTAR_NET = ''N'' where EXPORTAR_NET = ''S''' );
+      end;
+    except on E: Exception do
+      begin
+        AssignFile(arq, 'web_contas.txt');
+        Rewrite(arq);
+        Writeln(arq, E.Message);
+        CloseFile(arq);
+      end;
     end;
   finally
     FreeAndNil(repositorio);

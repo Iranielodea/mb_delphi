@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, FMTBcd, SqlExpr, DB, DBClient, Provider, ppProd, ppClass,
   ppReport, ppComm, ppRelatv, ppDB, ppDBPipe, ppCtrls, ppBands, ppVar,
-  ppPrnabl, ppCache, ppViewr;
+  ppPrnabl, ppCache, ppViewr, ppDesignLayer, ppParameter;
 
 type
   TfRContas = class(TForm)
